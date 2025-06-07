@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Estado de Usuarios">
+  <meta name="author" content="Maestranza Unidos">
+  <title>Maestranza Unidos - Estado de Usuarios</title>
+
+  <!-- Icono -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+
+  <!-- Fuentes y estilos -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-industry"></i></div>
+        <div class="sidebar-brand-text mx-3">Maestranza Unidos</div>
+      </a>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="gestion_usuario.html"><i class="fas fa-users"></i> <span>Gestión de Usuarios</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="asig.roles.html"><i class="fas fa-user-tag"></i> <span>Asignación de Roles</span></a></li>
+      <li class="nav-item active"><a class="nav-link" href="estado_usuario.html"><i class="fas fa-user-check"></i> <span>Estado de Usuarios</span></a></li>
+      <hr class="sidebar-divider">
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span></a></li>
+    </ul>
+
+    <!-- Contenido -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid">
+          <!-- Encabezado -->
+          <div class="d-sm-flex align-items-center justify-content-between my-4">
+            <h1 class="h3 mb-0 text-gray-800">Estado de Usuarios</h1>
+            <span class="text-muted">Usuario logueado: <strong>admin@maestranza.cl</strong></span>
+          </div>
+
+          <!-- Tarjetas de resumen -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Usuarios Activos</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Usuarios Inactivos</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-user-times fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Usuarios</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">4</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buscador -->
+          <div class="mb-3">
+            <input type="text" id="buscarUsuario" class="form-control" placeholder="Buscar usuario por nombre, correo o estado...">
+          </div>
+
+          <!-- Tabla -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Estado Actual de Usuarios</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="tablaEstados" width="100%" cellspacing="0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>Correo Electrónico</th>
+                      <th>Último Acceso</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Millaray Esposito</td>
+                      <td>millarayes@gmail.com</td>
+                      <td>2023-11-15 10:30</td>
+                      <td><span class="badge badge-success">Activo</span></td>
+                      <td><button class="btn btn-sm btn-warning" onclick="cambiarEstado(1)"><i class="fas fa-sync-alt"></i> Cambiar</button></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Matias Orellana</td>
+                      <td>matiasorellana@gmail.com</td>
+                      <td>2023-11-10 15:45</td>
+                      <td><span class="badge badge-secondary">Inactivo</span></td>
+                      <td><button class="btn btn-sm btn-warning" onclick="cambiarEstado(2)"><i class="fas fa-sync-alt"></i> Cambiar</button></td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Benjamín Contreras</td>
+                      <td>benjamin.contreras@gmail.com</td>
+                      <td>2023-11-14 09:15</td>
+                      <td><span class="badge badge-success">Activo</span></td>
+                      <td><button class="btn btn-sm btn-warning" onclick="cambiarEstado(3)"><i class="fas fa-sync-alt"></i> Cambiar</button></td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>Alexssander López</td>
+                      <td>alexssander.lopez@gmail.com</td>
+                      <td>2023-11-08 16:20</td>
+                      <td><span class="badge badge-secondary">Inactivo</span></td>
+                      <td><button class="btn btn-sm btn-warning" onclick="cambiarEstado(4)"><i class="fas fa-sync-alt"></i> Cambiar</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Aquí podrías agregar un botón para exportar a PDF o Excel -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modales: Confirmación, Cargando, Éxito -->
+  <div class="modal fade" id="cambiarEstadoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar Cambio de Estado</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body">¿Está seguro que desea cambiar el estado de este usuario?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-warning" onclick="confirmarCambioEstado()">Confirmar Cambio</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="cargandoModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content text-center">
+        <div class="modal-body">
+          <div class="spinner-border text-primary mb-2" role="status"></div>
+          <p>Procesando cambio...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exitoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content text-center">
+        <div class="modal-body">
+          <i class="fas fa-check-circle fa-3x text-success mb-2"></i>
+          <h5 class="mb-3">Estado actualizado correctamente</h5>
+          <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <script>
+    let usuarioIdActual;
+
+    function cambiarEstado(id) {
+      usuarioIdActual = id;
+      $('#cambiarEstadoModal').modal('show');
+    }
+
+    function confirmarCambioEstado() {
+      $('#cambiarEstadoModal').modal('hide');
+      $('#cargandoModal').modal('show');
+
+      setTimeout(() => {
+        const filas = document.querySelectorAll('#tablaEstados tbody tr');
+        filas.forEach(fila => {
+          if (parseInt(fila.cells[0].textContent) === usuarioIdActual) {
+            const badge = fila.cells[4].querySelector('.badge');
+            if (badge.classList.contains('badge-success')) {
+              badge.classList.replace('badge-success', 'badge-secondary');
+              badge.textContent = 'Inactivo';
+            } else {
+              badge.classList.replace('badge-secondary', 'badge-success');
+              badge.textContent = 'Activo';
+            }
+          }
+        });
+
+        actualizarContadores();
+        $('#cargandoModal').modal('hide');
+        $('#exitoModal').modal('show');
+      }, 2000);
+    }
+
+    function actualizarContadores() {
+      const badges = document.querySelectorAll('#tablaEstados .badge');
+      let activos = 0, inactivos = 0;
+      badges.forEach(badge => {
+        if (badge.textContent === 'Activo') activos++;
+        else inactivos++;
+      });
+      document.querySelector('.text-success + .h5').textContent = activos;
+      document.querySelector('.text-secondary + .h5').textContent = inactivos;
+      document.querySelector('.text-primary + .h5').textContent = activos + inactivos;
+    }
+
+    // Buscador de usuarios
+    document.getElementById('buscarUsuario').addEventListener('keyup', function () {
+      const valor = this.value.toLowerCase();
+      const filas = document.querySelectorAll('#tablaEstados tbody tr');
+      filas.forEach(fila => {
+        const texto = fila.textContent.toLowerCase();
+        fila.style.display = texto.includes(valor) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Dashboard Supervisión del Sistema">
+  <meta name="author" content="Maestranza Unidos">
+  <title>Maestranza Unidos - Dashboard de Supervisión</title>
+
+  <!-- Fuentes y estilos -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Estilo personalizado para altura de gráficos inferiores -->
+  <style>
+    .grafico-pequeno {
+      height: 250px !important;
+    }
+  </style>
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-industry"></i></div>
+        <div class="sidebar-brand-text mx-3">Maestranza Unidos</div>
+      </a>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+      <hr class="sidebar-divider">
+      <li class="nav-item"><a class="nav-link" href="gestion_usuario.html"><i class="fas fa-users"></i> <span>Gestión de Usuarios</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-tag"></i> <span>Asignación de Roles</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-check"></i> <span>Estado de Usuarios</span></a></li>
+      <li class="nav-item active"><a class="nav-link" href="dashboard_supervision.html"><i class="fas fa-desktop"></i> <span>Dashboard de sistema</a></li>
+      <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="fas fa-chart-line"></i> <span>Dashboard del Negocio</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="mantenimiento.html"><i class="fas fa-tools"></i> <span>Mantenimiento</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="alerta.html"><i class="fas fa-bell"></i> <span>Alerta Stock Mínimo</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-boxes"></i> <span>Límites de Inventario</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-exclamation-triangle"></i> <span>Alertas Automáticas</span></a></li>
+      <hr class="sidebar-divider">
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span></a></li>
+    </ul>
+
+    <!-- Contenido -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid">
+
+          <!-- Encabezado -->
+          <div class="d-sm-flex align-items-center justify-content-between my-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard de Supervisión del Sistema</h1>
+          </div>
+
+          <!-- Tarjetas Resumen -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Usuarios Activos</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">45</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Rendimiento del Sistema</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="rendimientoSistema">95%</div>
+                        </div>
+                        <div class="col">
+                          <div class="progress progress-sm mr-2">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-tachometer-alt fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Uso de CPU</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="usoCPU">65%</div>
+                        </div>
+                        <div class="col">
+                          <div class="progress progress-sm mr-2">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-microchip fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Memoria RAM</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="memoriaRAM">75%</div>
+                        </div>
+                        <div class="col">
+                          <div class="progress progress-sm mr-2">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-memory fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>          <!-- Gráficos -->
+          <div class="row">
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Uso de Recursos del Sistema</h6>
+                </div>
+                <div class="card-body">
+                  <canvas id="graficoRecursos"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Actividad de Usuarios</h6>
+                </div>
+                <div class="card-body">
+                  <canvas id="graficoUsuarios"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Rendimiento por Módulo</h6>
+                </div>
+                <div class="card-body">
+                  <canvas id="graficoModulos" class="grafico-pequeno"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Errores del Sistema</h6>
+                </div>
+                <div class="card-body">
+                  <canvas id="graficoErrores" class="grafico-pequeno"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="js/sb-admin-2.min.js"></script>
+  <script>
+    // Uso de Recursos
+    const ctxRecursos = document.getElementById('graficoRecursos').getContext('2d');
+    new Chart(ctxRecursos, {
+      type: 'line',
+      data: {
+        labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+        datasets: [{
+          label: 'CPU',
+          data: [45, 59, 80, 81, 56, 55],
+          borderColor: '#4e73df',
+          fill: false
+        }, {
+          label: 'RAM',
+          data: [65, 70, 75, 85, 75, 70],
+          borderColor: '#1cc88a',
+          fill: false
+        }]
+      }
+    });
+
+    // Actividad de Usuarios
+    const ctxUsuarios = document.getElementById('graficoUsuarios').getContext('2d');
+    new Chart(ctxUsuarios, {
+      type: 'bar',
+      data: {
+        labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
+        datasets: [{
+          label: 'Usuarios Conectados',
+          data: [35, 42, 45, 38, 40],
+          backgroundColor: '#36b9cc'
+        }]
+      }
+    });
+
+    // Rendimiento por Módulo
+    const ctxModulos = document.getElementById('graficoModulos').getContext('2d');
+    new Chart(ctxModulos, {
+      type: 'radar',
+      data: {
+        labels: ['Inventario', 'Ventas', 'Producción', 'RRHH', 'Finanzas'],
+        datasets: [{
+          label: 'Rendimiento',
+          data: [95, 89, 90, 96, 94],
+          backgroundColor: 'rgba(78, 115, 223, 0.2)',
+          borderColor: '#4e73df'
+        }]
+      }
+    });
+
+    // Errores del Sistema
+    const ctxErrores = document.getElementById('graficoErrores').getContext('2d');
+    new Chart(ctxErrores, {
+      type: 'pie',
+      data: {
+        labels: ['Críticos', 'Moderados', 'Leves'],
+        datasets: [{
+          data: [2, 8, 15],
+          backgroundColor: ['#e74a3b', '#f6c23e', '#1cc88a']
+        }]
+      }
+    });
+  </script>
+</body>
+</html>

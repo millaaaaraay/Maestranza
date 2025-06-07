@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Dashboard Maestranza Unidos">
+  <meta name="author" content="Maestranza Unidos">
+  <title>Maestranza Unidos - Dashboard</title>
+
+  <!-- Fuentes y estilos -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-industry"></i></div>
+        <div class="sidebar-brand-text mx-3">Maestranza Unidos</div>
+      </a>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item active"><a class="nav-link" href="index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+      <hr class="sidebar-divider">
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-users"></i> <span>Gestión de Usuarios</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-tag"></i> <span>Asignación de Roles</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-check"></i> <span>Estado de Usuarios</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="dashboard_supervision.html"><i class="fas fa-desktop"></i> <span>Dashboard de sistema</a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-chart-line"></i> <span>Dashboard del Negocio</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-tools"></i> <span>Mantenimiento</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bell"></i> <span>Alerta Stock Mínimo</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-boxes"></i> <span>Límites de Inventario</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-exclamation-triangle"></i> <span>Alertas Automáticas</span></a></li>
+      <hr class="sidebar-divider">
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span></a></li>
+    </ul>
+
+    <!-- Contenido -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid">
+
+          <!-- Encabezado -->
+          <div class="d-sm-flex align-items-center justify-content-between my-4">
+            <h1 class="h3 mb-0 text-gray-800">Panel de Control</h1>
+          </div>
+
+          <!-- Tarjetas Resumen -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Órdenes Activas</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">24</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Equipos en Mantención</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">12</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-tools fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Órdenes de Producción</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-cogs fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Materiales en Stock</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">154</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-boxes fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gráficos -->
+          <div class="row">
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Ranking de Ventas por Vendedor</h6>
+                </div>
+                <div class="card-body">
+                  <canvas id="graficoVendedores"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Órdenes por Día</h6>
+                </div>
+                <div class="card-body">
+                  <canvas id="graficoOrdenes"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Resumen Financiero</h6>
+                </div>
+                <div class="card-body">
+                  <canvas id="graficoFinanciero"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Órdenes por Semana</h6>
+                </div>
+                <div class="card-body">
+                  <canvas id="graficoSemanal"></canvas>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="js/sb-admin-2.min.js"></script>
+  <script>
+    // Órdenes por Día
+    const ctxOrdenes = document.getElementById('graficoOrdenes').getContext('2d');
+    new Chart(ctxOrdenes, {
+      type: 'line',
+      data: {
+        labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
+        datasets: [{
+          label: 'Órdenes',
+          data: [12, 19, 7, 15, 10],
+          borderColor: '#4e73df',
+          fill: false
+        }]
+      }
+    });
+
+    // Resumen Financiero
+    const ctxFinanciero = document.getElementById('graficoFinanciero').getContext('2d');
+    new Chart(ctxFinanciero, {
+      type: 'bar',
+      data: {
+        labels: ['Ingresos', 'Egresos', 'Utilidad'],
+        datasets: [{
+          label: 'Monto en CLP',
+          data: [45000000, 27000000, 18000000],
+          backgroundColor: ['#1cc88a', '#e74a3b', '#36b9cc']
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Órdenes por Semana
+    const ctxSemanal = document.getElementById('graficoSemanal').getContext('2d');
+    new Chart(ctxSemanal, {
+      type: 'bar',
+      data: {
+        labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+        datasets: [{
+          label: 'Órdenes Completadas',
+          data: [45, 38, 52, 41],
+          backgroundColor: '#4e73df',
+          borderColor: '#2e59d9',
+          borderWidth: 1,
+          borderRadius: 5,
+          maxBarThickness: 50
+        }, {
+          label: 'Órdenes en Proceso',
+          data: [15, 22, 18, 25],
+          backgroundColor: '#1cc88a',
+          borderColor: '#169b6b',
+          borderWidth: 1,
+          borderRadius: 5,
+          maxBarThickness: 50
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 2,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Análisis de Órdenes Semanales'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              drawBorder: false,
+              color: '#e9ecef'
+            },
+            ticks: {
+              font: {
+                size: 12
+              }
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            },
+            ticks: {
+              font: {
+                size: 12
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Ranking de Ventas por Vendedor
+    const ctxVendedores = document.getElementById('graficoVendedores').getContext('2d');
+    new Chart(ctxVendedores, {
+      type: 'bar',
+      data: {
+        labels: ['Millaray Esposito', 'Alexssander Lopez', 'Matias Orellana', 'Benjamin Contreras'],
+        datasets: [{
+          label: 'Ventas (CLP)',
+          data: [27956000, 23200000, 9572000, 8044000, 4580120],
+          backgroundColor: [
+            '#4e73df',
+            '#1cc88a',
+            '#36b9cc',
+            '#f6c23e',
+            '#e74a3b'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Top 5 Vendedores'
+          }
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                return value.toLocaleString();
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="Dashboard Maestranza Unidos">
+      <meta name="author" content="Maestranza Unidos">
+      <title>Maestranza Unidos - Inicio</title>
+      <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+      <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  </head>
+  <body id="page-top">
+      <div id="wrapper">
+          <!-- Sidebar -->
+          <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+              <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                  <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-industry"></i></div>
+                  <div class="sidebar-brand-text mx-3">Maestranza Unidos</div>
+              </a>
+              <hr class="sidebar-divider my-0">
+              <li class="nav-item active"><a class="nav-link" href="index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+              <hr class="sidebar-divider">
+              <li class="nav-item"><a class="nav-link" href="gestion_usuario.html"><i class="fas fa-users"></i> <span>Gestión de Usuarios</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="fas fa-chart-line"></i> <span>Dashboard Negocio</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="dashboard_supervision.html"><i class="fas fa-desktop"></i> <span>Dashboard de sistema</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="mantenimiento.html"><i class="fas fa-tools"></i> <span>Mantenimiento</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="alerta.html"><i class="fas fa-bell"></i> <span>Alerta Stock Mínimo</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-boxes"></i> <span>Límites de Inventario</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-exclamation-triangle"></i> <span>Alertas Automáticas</span></a></li>
+              <hr class="sidebar-divider">
+              <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span></a></li>
+          </ul>
+
+          <!-- Contenido Principal -->
+          <div class="container">
+              <!-- Módulo de Configuración de Alerta de Stock Mínimo -->
+              <div class="mt-5">
+                  <h2 class="mb-4">Configuración de Alertas de Stock</h2>
+                  <form id="alertaForm" class="needs-validation" novalidate>
+                      <div class="row g-3">
+                          <div class="col-md-6">
+                              <label class="form-label">Nombre del Producto</label>
+                              <input type="text" class="form-control" id="nombreProducto" required>
+                          </div>
+                          <div class="col-md-6">
+                              <label class="form-label">Código del Producto</label>
+                              <input type="text" class="form-control" id="codigoProducto" required>
+                          </div>
+                          <div class="col-md-4">
+                              <label class="form-label">Categoría</label>
+                              <select class="form-select" id="categoria" required>
+                                  <option value="">Seleccione...</option>
+                                  <option value="Eléctrico">Eléctrico</option>
+                                  <option value="Mecánico">Mecánico</option>
+                                  <option value="Herramientas">Herramientas</option>
+                              </select>
+                          </div>
+                          <div class="col-md-4">
+                              <label class="form-label">Stock Mínimo</label>
+                              <input type="number" class="form-control" id="stockMinimo" min="1" required>
+                          </div>
+                          <div class="col-md-4">
+                              <label class="form-label">Bodega</label>
+                              <input type="text" class="form-control" id="bodega" required>
+                          </div>
+                          <div class="col-12">
+                              <button type="submit" class="btn btn-primary">Guardar</button>
+                              <button type="reset" class="btn btn-secondary">Limpiar</button>
+                          </div>
+                      </div>
+                  </form>
+
+                  <!-- Tabla de Alertas Configuradas -->
+                        <div class="mt-5">
+                        <h3>Alertas Configuradas</h3>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Código</th>
+                                <th>Categoría</th>
+                                <th>Stock Mínimo</th>
+                                <th>Bodega</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody id="alertasConfiguradasBody">
+                            <!-- Las filas se insertarán dinámicamente -->
+                            </tbody>
+                        </table>
+                        </div>
+
+              </div>
+
+              <!-- Dashboard de Alertas -->
+              <div class="mt-5">
+                  <h2 class="mb-4">Dashboard de Alertas</h2>
+                  <div class="row">
+                      <div class="col-md-4">
+                          <div class="card text-white bg-warning">
+                              <div class="card-body">
+                                  <h5 class="card-title">Productos en Alerta</h5>
+                                  <p class="card-text display-4">8</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-4">
+                          <div class="card text-white bg-danger">
+                              <div class="card-body">
+                                  <h5 class="card-title">Productos Críticos</h5>
+                                  <p class="card-text display-4">3</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-4">
+                          <div class="card text-white bg-info">
+                              <div class="card-body">
+                                  <h5 class="card-title">Alertas Activas</h5>
+                                  <p class="card-text display-4">12</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row mt-4">
+                      <div class="col-md-8">
+                          <h3>Productos Bajo Stock Mínimo</h3>
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                      <th>Producto</th>
+                                      <th>Stock Actual</th>
+                                      <th>Stock Mínimo</th>
+                                      <th>Estado</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr class="table-danger">
+                                      <td>Destornillador</td>
+                                      <td>0</td>
+                                      <td>5</td>
+                                      <td>⚠️ Crítico</td>
+                                  </tr>
+                                  <tr class="table-warning">
+                                      <td>Alicate</td>
+                                      <td>3</td>
+                                      <td>5</td>
+                                      <td>⚠️ Bajo</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                      <div class="col-md-4">
+                          <h3>Alertas por Categoría</h3>
+                          <canvas id="chartAlertas"></canvas>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const alertaForm = document.getElementById('alertaForm');
+    const tablaAlertas = document.getElementById('alertasConfiguradasBody');
+    let alertas = [];
+
+    // Evento para agregar una nueva alerta
+    alertaForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombreProducto').value.trim();
+      const codigo = document.getElementById('codigoProducto').value.trim();
+      const categoria = document.getElementById('categoria').value;
+      const stockMinimo = parseInt(document.getElementById('stockMinimo').value);
+      const bodega = document.getElementById('bodega').value.trim();
+
+      if (!nombre || !codigo || !categoria || isNaN(stockMinimo) || stockMinimo <= 0 || !bodega) {
+        alert("Por favor, completa todos los campos correctamente.");
+        return;
+      }
+
+      const nuevaAlerta = { producto: nombre, codigo, categoria, stockMinimo, bodega };
+      alertas.push(nuevaAlerta);
+      actualizarTablaAlertas();
+      alertaForm.reset();
+    });
+
+    // Función para actualizar la tabla
+    function actualizarTablaAlertas() {
+      tablaAlertas.innerHTML = '';
+      alertas.forEach((alerta, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${alerta.producto}</td>
+          <td>${alerta.codigo}</td>
+          <td>${alerta.categoria}</td>
+          <td>${alerta.stockMinimo}</td>
+          <td>${alerta.bodega}</td>
+          <td><button class='btn btn-danger btn-sm' onclick='eliminarAlerta(${index})'>Eliminar</button></td>
+        `;
+        tablaAlertas.appendChild(tr);
+      });
+    }
+
+    // Función global para eliminar
+    window.eliminarAlerta = function(index) {
+      alertas.splice(index, 1);
+      actualizarTablaAlertas();
+    };
+  });
+</script>
+
+
+
+  </body>
+  </html>

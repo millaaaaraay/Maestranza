@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Dashboard Maestranza Unidos">
+  <meta name="author" content="Maestranza Unidos">
+  <title>Maestranza Unidos - Inicio</title>
+
+  <!-- Fuentes y estilos -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-industry"></i></div>
+        <div class="sidebar-brand-text mx-3">Maestranza Unidos</div>
+      </a>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item active"><a class="nav-link" href="index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+      <hr class="sidebar-divider">
+      <li class="nav-item"><a class="nav-link" href="gestion_usuario.html"><i class="fas fa-users"></i> <span>Gestión de Usuarios</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="fas fa-chart-line"></i> <span>Dashboard Negocio</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="dashboard_supervision.html"><i class="fas fa-desktop"></i> <span>Dashboard de sistema</a></li>
+      <li class="nav-item"><a class="nav-link" href="mantenimiento.html"><i class="fas fa-tools"></i> <span>Mantenimiento</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="alerta.html"><i class="fas fa-bell"></i> <span>Alerta Stock Mínimo</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-boxes"></i> <span>Límites de Inventario</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-exclamation-triangle"></i> <span>Alertas Automáticas</span></a></li>
+            <hr class="sidebar-divider">
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span></a></li>
+    </ul>
+    <!-- Fin Sidebar -->
+
+    <!-- Contenido -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid">
+
+          <!-- Encabezado -->
+          <div class="d-sm-flex align-items-center justify-content-between my-4">
+            <h1 class="h3 mb-0 text-gray-800">Bienvenido a Maestranza Unidos</h1>
+          </div>
+
+          <!-- Cinta transportadora animada -->
+        <div class="row mb-5">
+        <div class="col-lg-12">
+            <div class="card border-0 shadow-sm">
+            <div class="card-body text-center">
+                <canvas id="transportCanvas" width="900" height="220" style="border:1px solid #dee2e6; background-color: #f8f9fc;"></canvas>
+                <h5 class="card-title text-dark font-weight-bold mt-3">Línea de Producción Activa</h5>
+                <p class="text-muted">Eficiencia y movimiento continuo en Maestranza Unidos</p>
+            </div>
+            </div>
+        </div>
+        </div>
+
+<script>
+  const canvas = document.getElementById("transportCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const beltY = 150;
+  const items = [];
+
+  for (let i = 0; i < 8; i++) {
+    items.push({ x: i * 120, type: i % 2 === 0 ? 'box' : 'gear' });
+  }
+
+  function drawBelt() {
+    ctx.fillStyle = "#6c757d";
+    ctx.fillRect(0, beltY, canvas.width, 40);
+
+    // bandas
+    ctx.strokeStyle = "#343a40";
+    ctx.lineWidth = 3;
+    for (let i = 0; i < canvas.width; i += 20) {
+      ctx.beginPath();
+      ctx.moveTo(i, beltY);
+      ctx.lineTo(i + 10, beltY + 40);
+      ctx.stroke();
+    }
+  }
+
+  function drawBox(x, y) {
+    ctx.fillStyle = "#4e73df";
+    ctx.fillRect(x, y - 20, 40, 40);
+  }
+
+  function drawGear(x, y, rotation) {
+    ctx.save();
+    ctx.translate(x + 20, y + 20);
+    ctx.rotate(rotation);
+    ctx.fillStyle = "#e74a3b";
+    for (let i = 0; i < 8; i++) {
+      ctx.rotate(Math.PI / 4);
+      ctx.fillRect(20, -5, 10, 10);
+    }
+    ctx.beginPath();
+    ctx.arc(0, 0, 20, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  let rotation = 0;
+
+  function animateBelt() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBelt();
+
+    for (let item of items) {
+      item.x -= 2;
+      if (item.x < -50) item.x = canvas.width + 50;
+
+      if (item.type === 'box') {
+        drawBox(item.x, beltY);
+      } else {
+        drawGear(item.x, beltY, rotation);
+      }
+    }
+
+    rotation += 0.05;
+    requestAnimationFrame(animateBelt);
+  }
+
+  animateBelt();
+</script>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card shadow mb-4">
+                <div class="card-header bg-primary py-3">
+                  <h6 class="m-0 font-weight-bold text-white">Nuestros Servicios</h6>
+                </div>
+                <div class="card-body">
+                  <div class="row text-center">
+                    <div class="col-md-4 mb-4">
+                      <i class="fas fa-cogs fa-3x mb-3 text-primary"></i>
+                      <h5>Mecanizado</h5>
+                      <p>Tornería, fresado y rectificado de precisión</p>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                      <i class="fas fa-tools fa-3x mb-3 text-primary"></i>
+                      <h5>Mantenimiento</h5>
+                      <p>Reparación de maquinaria industrial</p>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                      <i class="fas fa-industry fa-3x mb-3 text-primary"></i>
+                      <h5>Fabricación</h5>
+                      <p>Piezas metálicas a medida</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="js/sb-admin-2.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maestranza Unidos - Inicio de Sesión</title>
+
+  <!-- Bootstrap y FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+    background: url('img/mineriaa.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+.login-card {
+  background: rgba(255, 255, 255, 0.658); /* Blanco con transparencia */
+  border-radius: 1rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  display: flex;
+  max-width: 900px;
+  width: 100%;
+  overflow: hidden;
+  backdrop-filter: blur(5px); /* Efecto glass suave */
+}
+
+
+    .login-image {
+      flex: 1;
+      background: url('img/img.png') center center no-repeat;
+      background-size: cover;
+      min-height: 400px;
+    }
+
+    .login-form {
+      flex: 1;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .system-icon {
+      font-size: 3rem;
+      color: #4e73df;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-user {
+      border-radius: 2rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+    }
+
+    .btn-user i {
+      margin-right: 0.5rem;
+    }
+
+    .btn-user:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Modal login */
+    .modal-content {
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .form-control-user {
+      border-radius: 2rem;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      transition: all 0.3s;
+    }
+
+    .form-control-user:focus {
+      border-color: #4e73df;
+      box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    }
+
+    .btn-close-custom {
+      border: none;
+      background: transparent;
+      font-size: 1.5rem;
+      opacity: 0.5;
+    }
+
+    .btn-close-custom:hover {
+      opacity: 1;
+    }
+    .btn-acceso-admin {
+  background-color: #0d47a1; /* Azul oscuro */
+  color: white;
+  font-weight: bold;
+  border-radius: 2rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+.btn-acceso-admin i {
+  margin-right: 0.5rem;
+}
+
+.btn-acceso-admin:hover {
+  background-color: #1565c0;
+}
+
+.btn-acceso-worker {
+  background-color: #00695c; /* Verde oscuro */
+  color: white;
+  font-weight: bold;
+  border-radius: 2rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+.btn-acceso-worker i {
+  margin-right: 0.5rem;
+}
+
+.btn-acceso-worker:hover {
+  background-color: #00796b;
+}
+.descripcion-sistema {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #000; 
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <div class="login-image d-none d-md-block"></div>
+    <div class="login-form text-center">
+      <i class="fas fa-industry system-icon"></i>
+      <h2 class="font-weight-bold text-dark">Iniciar sesion</h2>
+      <p class="descripcion-sistema mb-4">Sistema de Gestión Empresarial</p>
+
+
+        <button class="btn btn-acceso-admin btn-block mb-3" onclick="showLoginModal('admin')">
+        <i class="fas fa-user-lock mr-2"></i> Acceso Administrador
+        </button>
+
+        <button class="btn btn-acceso-worker btn-block" onclick="showLoginModal('worker')">
+        <i class="fas fa-hard-hat mr-2"></i> Acceso Trabajador
+        </button>
+
+    </div>
+  </div>
+
+  <!-- Modal de Login -->
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content p-4">
+        <div class="modal-header border-0">
+          <h5 class="modal-title mx-auto font-weight-bold text-primary" id="loginModalLabel">
+            <i class="fas fa-sign-in-alt mr-2"></i> Iniciar Sesión
+          </h5>
+          <button type="button" class="btn-close-custom position-absolute" style="right: 1rem;" data-dismiss="modal">
+            &times;
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div id="loginError" class="alert alert-danger d-none text-center"></div>
+          <form id="loginForm" class="user">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-light border-0"><i class="fas fa-user text-primary"></i></span>
+                </div>
+                <input type="text" class="form-control form-control-user" id="username" placeholder="Usuario">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-light border-0"><i class="fas fa-lock text-primary"></i></span>
+                </div>
+                <input type="password" class="form-control form-control-user" id="password" placeholder="Contraseña">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-user btn-block mt-3">
+              <i class="fas fa-arrow-right mr-2"></i>Ingresar al sistema
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    let currentUserType = '';
+
+    function showLoginModal(userType) {
+      currentUserType = userType;
+      $('#loginError').addClass('d-none');
+      $('#loginForm')[0].reset();
+      $('#loginModal').modal('show');
+    }
+
+    $('#loginForm').on('submit', function(e) {
+      e.preventDefault();
+      const username = $('#username').val();
+      const password = $('#password').val();
+
+      if (currentUserType === 'admin') {
+        if (username === 'admin' && password === 'admin123') {
+          window.location.href = 'index.html';
+        } else {
+          showError('Credenciales de administrador inválidas');
+        }
+      } else if (currentUserType === 'worker') {
+        if (username === 'worker' && password === 'worker123') {
+          window.location.href = 'index.html';
+        } else {
+          showError('Credenciales de trabajador inválidas');
+        }
+      }
+    });
+
+    function showError(message) {
+      $('#loginError').removeClass('d-none').hide().text(message).fadeIn();
+    }
+  </script>
+</body>
+</html>

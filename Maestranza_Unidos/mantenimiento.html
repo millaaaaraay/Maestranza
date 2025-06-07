@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Dashboard Maestranza Unidos">
+  <meta name="author" content="Maestranza Unidos">
+  <title>Módulo de Mantenimiento - Maestranza Unidos</title>
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-industry"></i></div>
+        <div class="sidebar-brand-text mx-3">Maestranza Unidos</div>
+      </a>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item active"><a class="nav-link" href="index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+      <hr class="sidebar-divider">
+      <li class="nav-item"><a class="nav-link" href="gestion_usuario.html"><i class="fas fa-users"></i> <span>Gestión de Usuarios</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="fas fa-chart-line"></i> <span>Dashboard Negocio</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="dashboard_supervision.html"><i class="fas fa-desktop"></i> <span>Dashboard de sistema</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="mantenimiento.html"><i class="fas fa-tools"></i> <span>Mantenimiento</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="alerta.html"><i class="fas fa-bell"></i> <span>Alerta Stock Mínimo</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-boxes"></i> <span>Límites de Inventario</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-exclamation-triangle"></i> <span>Alertas Automáticas</span></a></li>
+      <hr class="sidebar-divider">
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span></a></li>
+    </ul>
+
+    <div class="container mt-5">
+      <h2 class="mb-4">Registro de Mantenimiento</h2>
+      <div class="card mb-4">
+        <div class="card-body">
+          <form id="mantenimientoForm">
+            <div class="mb-3">
+              <label for="nombreEquipo" class="form-label">Nombre del Equipo</label>
+              <input type="text" class="form-control" id="nombreEquipo" required>
+            </div>
+            <div class="mb-3">
+              <label for="numeroSerie" class="form-label">Número de Serie</label>
+              <input type="text" class="form-control" id="numeroSerie" required>
+            </div>
+            <div class="mb-3">
+              <label for="tipoEquipo" class="form-label">Tipo de Equipo</label>
+              <select class="form-control" id="tipoEquipo" required>
+                <option value="">Seleccione tipo</option>
+                <option value="Eléctrico">Eléctrico</option>
+                <option value="Mecánico">Mecánico</option>
+                <option value="Hidráulico">Hidráulico</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="fechaMantenimiento" class="form-label">Fecha de Mantenimiento</label>
+              <input type="date" class="form-control" id="fechaMantenimiento" required>
+            </div>
+            <div class="mb-3">
+              <label for="tecnico" class="form-label">Técnico Responsable</label>
+              <input type="text" class="form-control" id="tecnico" required>
+            </div>
+            <div class="mb-3">
+              <label for="estadoEquipo" class="form-label">Estado del Equipo</label>
+              <select class="form-control" id="estadoEquipo" required>
+                <option value="">Seleccione estado</option>
+                <option value="Operativo">Operativo</option>
+                <option value="En reparación">En reparación</option>
+                <option value="Dado de baja">Dado de baja</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="observaciones" class="form-label">Observaciones</label>
+              <textarea class="form-control" id="observaciones" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+            <button type="button" class="btn btn-warning" onclick="limpiarFormulario()">Limpiar</button>
+            <a href="index.html" class="btn btn-secondary">Volver al Menú</a>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Registros de Mantenimiento</h5>
+          <div class="table-responsive">
+            <table class="table table-striped" id="tablaMantenimiento">
+              <thead>
+                <tr>
+                  <th>Equipo</th>
+                  <th>Nº Serie</th>
+                  <th>Tipo</th>
+                  <th>Fecha</th>
+                  <th>Técnico</th>
+                  <th>Estado</th>
+                  <th>Observaciones</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    let registros = [
+      {
+        equipo: "Torno CNC",
+        numeroSerie: "TCN-2023-001",
+        tipo: "Mecánico",
+        fecha: "2023-11-01",
+        tecnico: "Millaray Esposito",
+        estado: "Operativo",
+        observaciones: "Mantenimiento preventivo realizado. Se cambiaron filtros y aceite."
+      },
+      {
+        equipo: "Compresor Industrial",
+        numeroSerie: "CI-2023-003",
+        tipo: "Hidráulico",
+        fecha: "2023-11-10",
+        tecnico: "Millaray Esposito",
+        estado: "Operativo",
+        observaciones: "Revisión general completada. Equipo funcionando correctamente."
+      },
+      {
+        equipo: "Fresadora CNC",
+        numeroSerie: "FCNC-2024-015",
+        tipo: "Eléctrico",
+        fecha: "2024-04-25",
+        tecnico: "Millaray Esposito",
+        estado: "En reparación",
+        observaciones: "Cambio de motor en curso. Se detectó sobrecalentamiento en la operación."
+      }
+    ];
+
+    document.getElementById('mantenimientoForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const registro = {
+        equipo: document.getElementById('nombreEquipo').value,
+        numeroSerie: document.getElementById('numeroSerie').value,
+        tipo: document.getElementById('tipoEquipo').value,
+        fecha: document.getElementById('fechaMantenimiento').value,
+        tecnico: document.getElementById('tecnico').value,
+        estado: document.getElementById('estadoEquipo').value,
+        observaciones: document.getElementById('observaciones').value
+      };
+      registros.push(registro);
+      actualizarTabla();
+      this.reset();
+    });
+
+    function actualizarTabla() {
+      const tbody = document.querySelector('#tablaMantenimiento tbody');
+      tbody.innerHTML = '';
+      registros.forEach((registro, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${registro.equipo}</td>
+          <td>${registro.numeroSerie}</td>
+          <td>${registro.tipo}</td>
+          <td>${registro.fecha}</td>
+          <td>${registro.tecnico}</td>
+          <td>${registro.estado}</td>
+          <td>${registro.observaciones}</td>
+          <td><button class="btn btn-sm btn-success" onclick="generarPDFIndividual(${i})">PDF</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function limpiarFormulario() {
+      document.getElementById('mantenimientoForm').reset();
+    }
+
+    async function generarPDFIndividual(index) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const registro = registros[index];
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(20);
+      doc.setTextColor(0, 51, 153);
+      doc.text('MAESTRANZA UNIDOS', doc.internal.pageSize.width / 2, 20, { align: 'center' });
+      doc.setFontSize(16);
+      doc.text('Reporte de Mantenimiento', doc.internal.pageSize.width / 2, 30, { align: 'center' });
+
+      doc.setLineWidth(0.5);
+      doc.line(20, 35, 190, 35);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0);
+
+      const fecha = new Date().toLocaleDateString();
+      const hora = new Date().toLocaleTimeString();
+      doc.text(`Fecha de emisión: ${fecha}`, 20, 45);
+      doc.text(`Hora: ${hora}`, 20, 52);
+
+      doc.setFont("helvetica", "bold");
+      doc.text('Detalles del Mantenimiento:', 20, 65);
+      doc.setFont("helvetica", "normal");
+
+      const startY = 75;
+      const lineHeight = 7;
+
+      doc.text(`Equipo: ${registro.equipo}`, 30, startY);
+      doc.text(`Número de Serie: ${registro.numeroSerie}`, 30, startY + lineHeight);
+      doc.text(`Tipo de Equipo: ${registro.tipo}`, 30, startY + lineHeight * 2);
+      doc.text(`Fecha de Mantenimiento: ${registro.fecha}`, 30, startY + lineHeight * 3);
+      doc.text(`Técnico Responsable: ${registro.tecnico}`, 30, startY + lineHeight * 4);
+      doc.text(`Estado del Equipo: ${registro.estado}`, 30, startY + lineHeight * 5);
+
+      doc.text('Observaciones:', 30, startY + lineHeight * 6);
+      const splitObservaciones = doc.splitTextToSize(registro.observaciones, 150);
+      doc.text(splitObservaciones, 30, startY + lineHeight * 7);
+
+      doc.setFontSize(10);
+      doc.text('Este documento es un registro oficial de mantenimiento de Maestranza Unidos', 20, 270);
+      doc.setFont("helvetica", "italic");
+      doc.text(`Página 1 de 1`, doc.internal.pageSize.width - 20, 280, { align: 'right' });
+
+      doc.save(`mantenimiento_${registro.equipo.replace(/\s/g, '_')}.pdf`);
+    }
+
+    window.onload = function () {
+      actualizarTabla();
+    };
+  </script>
+</body>
+</html>
