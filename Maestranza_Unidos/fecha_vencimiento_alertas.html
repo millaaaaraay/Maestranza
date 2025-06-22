@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fecha de Vencimiento y Alertas | Maestranza Unidos</title>
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<style>
+  body { background-color: #e5edf1; font-family: 'Nunito', sans-serif; }
+  .header-inv {
+    background: linear-gradient(90deg, #003366 60%, #007cc3 100%);
+    color: white;
+    border-radius: 0 0 12px 12px;
+    padding: 18px 0;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .header-inv .logo {
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-volver {
+    background: #007cc3;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 5px;
+    margin-bottom: 24px;
+    transition: background 0.2s;
+  }
+  .btn-volver:hover {
+    background: #003366;
+  }
+  .table thead th {
+    background-color: #007cc3;
+    color: white;
+  }
+  .alerta-proximo {
+    color: #b22222;
+    font-weight: 700;
+  }
+  .alerta-vigente {
+    color: #2d862d;
+    font-weight: 700;
+  }
+  .form-section {
+    background: white;
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    margin-bottom: 32px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header-inv">
+  <div class="logo">
+    <i class="fas fa-calendar-alt"></i> Maestranza Unidos - Fecha de Vencimiento y Alertas
+  </div>
+</div>
+
+<div class="container">
+  <a href="inventario_trabajador.html" class="btn btn-volver"><i class="fas fa-arrow-left mr-1"></i> Volver</a>
+
+  <section class="form-section">
+    <h4>Registrar o Modificar Fecha de Vencimiento</h4>
+    <form id="formVencimiento" class="form-inline">
+      <input type="text" id="producto" placeholder="Nombre del producto" class="form-control mr-2" required />
+      <input type="date" id="fechaVencimiento" class="form-control mr-2" required />
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+  </section>
+
+  <section>
+    <h4>Productos y Fechas de Vencimiento</h4>
+    <table class="table table-bordered table-hover mt-3">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Fecha de Vencimiento</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="tablaProductos">
+        <!-- Se llenará con JS -->
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<script>
+  // Datos simulados - en producción viene de backend
+  let productos = [
+    { nombre: "Producto A", fecha: "2025-07-10" },
+    { nombre: "Producto B", fecha: "2025-12-31" },
+    { nombre: "Producto C", fecha: "2025-06-25" }
+  ];
+
+  const tabla = document.getElementById("tablaProductos");
+  const form = document.getElementById("formVencimiento");
+  const inputProducto = document.getElementById("producto");
+  const inputFecha = document.getElementById("fechaVencimiento");
+
+  function calcularDiasParaVencimiento(fecha) {
+    const hoy = new Date();
+    const fechaVenc = new Date(fecha);
+    const diffTiempo = fechaVenc - hoy;
+    return Math.ceil(diffTiempo / (1000 * 60 * 60 * 24));
+  }
+
+  function mostrarProductos() {
+    tabla.innerHTML = "";
+    productos.forEach(({ nombre, fecha }) => {
+      const dias = calcularDiasParaVencimiento(fecha);
+      let estado = "";
+      if (dias <= 30 && dias >= 0) {
+        estado = `<span class="alerta-proximo"><i class="fas fa-exclamation-triangle"></i> Próximo a vencer (${dias} días)</span>`;
+      } else if (dias < 0) {
+        estado = `<span class="alerta-proximo"><i class="fas fa-times-circle"></i> Vencido</span>`;
+      } else {
+        estado = `<span class="alerta-vigente"><i class="fas fa-check-circle"></i> Vigente</span>`;
+      }
+
+      const fila = `<tr>
+        <td>${nombre}</td>
+        <td>${fecha}</td>
+        <td>${estado}</td>
+      </tr>`;
+      tabla.insertAdjacentHTML("beforeend", fila);
+    });
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const prod = inputProducto.value.trim();
+    const fec = inputFecha.value;
+
+    if (!prod || !fec) {
+      alert("Por favor, complete ambos campos.");
+      return;
+    }
+
+    // Buscar producto para modificar o agregar nuevo
+    const index = productos.findIndex(p => p.nombre.toLowerCase() === prod.toLowerCase());
+    if (index >= 0) {
+      productos[index].fecha = fec;
+      alert(`Fecha de vencimiento actualizada para ${prod}`);
+    } else {
+      productos.push({ nombre: prod, fecha: fec });
+      alert(`Producto ${prod} agregado con fecha de vencimiento.`);
+    }
+
+    inputProducto.value = "";
+    inputFecha.value = "";
+    mostrarProductos();
+  });
+
+  mostrarProductos();
+</script>
+
+</body>
+</html>

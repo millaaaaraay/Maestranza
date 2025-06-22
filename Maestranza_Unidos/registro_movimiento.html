@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Registro de Movimientos | Maestranza Unidos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body { background-color: #e5edf1; font-family: 'Nunito', sans-serif; }
+        .header-inv {
+            background: linear-gradient(90deg, #003366 60%, #007cc3 100%);
+            color: white;
+            border-radius: 0 0 12px 12px;
+            padding: 18px 0;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .header-inv .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+        .form-section, .table-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 28px 24px;
+            margin-bottom: 32px;
+        }
+        .btn-maestranza {
+            background: #007cc3;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+        .btn-maestranza:hover {
+            background: #003366;
+            color: white;
+        }
+        .table thead {
+            background-color: #007cc3;
+            color: white;
+        }
+        .table tbody tr td {
+            vertical-align: middle;
+        }
+        @media (max-width: 767px) {
+            .form-section, .table-section { padding: 14px 12px; }
+            .header-inv .logo { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-inv">
+        <div class="logo">
+            <i class="fas fa-warehouse"></i> Maestranza Unidos - Registro de Movimientos
+        </div>
+    </div>
+    <div class="container">
+        <a href="inventario_trabajador.html" class="btn btn-maestranza mb-4">
+            <i class="fas fa-arrow-left mr-1"></i> Volver
+        </a>
+        <div class="form-section">
+            <h4 class="mb-3 text-primary font-weight-bold">
+                <i class="fas fa-exchange-alt mr-2"></i> Registrar Movimiento
+            </h4>
+            <form id="movimientoForm" autocomplete="off">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="producto">Producto</label>
+                        <input type="text" class="form-control" id="producto" placeholder="Nombre del producto" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="tipo">Tipo de Movimiento</label>
+                        <select class="form-control" id="tipo" required>
+                            <option value="" disabled selected>Seleccione...</option>
+                            <option value="Entrada">Entrada</option>
+                            <option value="Salida">Salida</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="cantidad">Cantidad</label>
+                        <input type="number" class="form-control" id="cantidad" min="1" placeholder="0" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="fecha">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-maestranza mt-2">
+                    <i class="fas fa-plus-circle mr-1"></i> Registrar
+                </button>
+            </form>
+        </div>
+        <div class="table-section">
+            <h5 class="mb-3 text-primary font-weight-bold">
+                <i class="fas fa-list-alt mr-2"></i> Historial de Movimientos
+            </h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="tablaMovimientos">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Producto</th>
+                            <th>Tipo</th>
+                            <th>Cantidad</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Movimientos se agregarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Inicializar fecha a hoy
+        document.getElementById('fecha').valueAsDate = new Date();
+
+        document.getElementById('movimientoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const producto = document.getElementById('producto').value.trim();
+            const tipo = document.getElementById('tipo').value;
+            const cantidad = parseInt(document.getElementById('cantidad').value, 10);
+            const fecha = document.getElementById('fecha').value;
+
+            if (!producto || !tipo || isNaN(cantidad) || cantidad < 1 || !fecha) {
+                alert('Por favor, complete todos los campos correctamente.');
+                return;
+            }
+
+            const tabla = document.getElementById('tablaMovimientos').querySelector('tbody');
+            const rowCount = tabla.rows.length + 1;
+
+            const row = tabla.insertRow();
+            row.innerHTML = `
+                <td>${rowCount}</td>
+                <td>${producto}</td>
+                <td>${tipo}</td>
+                <td>${cantidad}</td>
+                <td>${fecha}</td>
+            `;
+
+            this.reset();
+            document.getElementById('fecha').valueAsDate = new Date();
+        });
+    </script>
+</body>
+</html>

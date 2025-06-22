@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio Trabajador | Maestranza Unidos S.A.</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+body { background-color: #e5edf1; }
+.container { margin-top: 40px; }
+
+/* HEADER MEJORADO */
+.sap-header {
+    background: linear-gradient(90deg, #003366 65%, #007cc3 100%);
+    color: #fff;
+    border-radius: 0 0 16px 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 36px;
+    position: relative;
+}
+.logo {
+    font-size: 2.1rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.logo i {
+    font-size: 2.2rem;
+}
+.header-actions {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+.header-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 1rem;
+    padding: 7px 17px 7px 14px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    background: #fff;
+    color: #003366;
+    transition: background .16s, color .16s, box-shadow .18s;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.04);
+    text-decoration: none;
+}
+.header-btn i { font-size: 1.11em; }
+.header-btn:hover,
+.header-btn:focus {
+    background: #f4f8fb;
+    color: #007cc3;
+    text-decoration: none;
+}
+.header-btn.logout {
+    background: #d92f37;
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 8px rgba(216, 47, 55, 0.08);
+    transition: background 0.16s, color 0.16s;
+}
+.header-btn.logout:hover,
+.header-btn.logout:focus {
+    background: #ab1d22;
+    color: #fff;
+}
+
+/* COLOR BLANCO PARA "MI PERFIL" */
+.profile-link {
+    color: #fff !important;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+.profile-link:hover,
+.profile-link:focus {
+    color: #eaf6fb !important;
+    text-decoration: underline;
+}
+
+/* RESTO DEL SITIO (tiles y tarjetas) */
+.bienvenida-row {
+    margin-bottom: 24px;
+}
+.bienvenida {
+    font-size: 1.08rem;
+    background: #eaf6fb;
+    color: #003366;
+    border: 1px solid #b6e0fb;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tiles-section {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 36px 18px 28px 18px;
+    margin-bottom: 32px;
+}
+.tiles-row {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 28px 32px;
+    justify-items: center;
+    align-items: stretch;
+    margin: 0;
+}
+.sap-tile {
+    background: #f7fafc;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 28px 12px 18px 12px;
+    text-align: center;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+    border: 2px solid #f0f4f8;
+    min-height: 210px;
+    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+}
+.sap-tile:hover {
+    box-shadow: 0 8px 24px rgba(0,60,120,0.13);
+    border-color: #007cc3;
+    background: #eaf6fb;
+    transform: translateY(-4px) scale(1.03);
+}
+.sap-tile .tile-icon {
+    font-size: 2.2rem;
+    color: #007cc3;
+    margin-bottom: 10px;
+}
+.sap-tile .tile-title {
+    font-size: 1.13rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #003366;
+    letter-spacing: 1px;
+}
+.sap-tile .tile-desc {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 12px;
+}
+.sap-tile .btn {
+    font-size: 0.95rem;
+    padding: 7px 18px;
+    margin-top: auto;
+    border-radius: 20px;
+}
+.info-card {
+    background: #f7fafc;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    padding: 18px 18px;
+    margin-top: 18px;
+}
+.info-card h5 {
+    color: #007cc3;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.info-card ul {
+    margin-bottom: 0;
+    padding-left: 18px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1199px) {
+    .sap-tile { min-height: 220px; }
+}
+@media (max-width: 991px) {
+    .sap-header { padding: 0 14px; }
+    .top-actions { right: 10px; }
+    .sap-tile { min-height: 230px; }
+}
+@media (max-width: 767px) {
+    .sap-header { flex-direction: column; align-items: flex-start; padding: 12px 12px; }
+    .logo { font-size: 1.2rem; gap: 6px;}
+    .header-actions { margin-top: 8px; }
+    .sap-tile { margin-bottom: 18px; max-width: 100%; min-height: auto; }
+    .tiles-section { padding: 16px 4px 12px 4px; }
+}
+</style>
+</head>
+<body id="page-top">
+    <div class="sap-header">
+        <div class="logo">
+            <i class="fas fa-industry"></i> Maestranza Unidos
+        </div>
+        <div class="top-actions">
+            <a href="perfil.html" class="profile-link" title="Ver perfil">
+                <i class="fas fa-user-circle"></i> Mi Perfil
+            </a>
+            <button class="logout-btn" onclick="window.location.href='login.html'">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row bienvenida-row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-12">
+                <div class="alert bienvenida" role="alert">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Bienvenido/a, aquí puedes gestionar tus tareas, solicitar insumos y revisar tu historial.
+                </div>
+            </div>
+        </div>
+        <div class="tiles-section">
+            <div class="tiles-row">
+                <!-- Tile: Mis Tareas -->
+                <div class="sap-tile" onclick="location.href='#'">
+                    <div>
+                        <div class="tile-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="tile-title">Mis Tareas</div>
+                        <div class="tile-desc">Tus tareas asignadas.</div>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm mt-2">Ver tareas</button>
+                </div>
+                <!-- Tile: Solicitar Insumos -->
+                <div class="sap-tile" onclick="location.href='#'">
+                    <div>
+                        <div class="tile-icon"><i class="fas fa-boxes"></i></div>
+                        <div class="tile-title">Solicitar Insumos</div>
+                        <div class="tile-desc">Solicita insumos.</div>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm mt-2">Solicitar</button>
+                </div>
+                <!-- Tile: Historial de Solicitudes -->
+                <div class="sap-tile" onclick="location.href='#'">
+                    <div>
+                        <div class="tile-icon"><i class="fas fa-history"></i></div>
+                        <div class="tile-title">Historial</div>
+                        <div class="tile-desc">Tus solicitudes previas.</div>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm mt-2">Ver historial</button>
+                </div>
+                <!-- Tile: Inventario -->
+                <div class="sap-tile" onclick="location.href='inventario_trabajador.html'">
+                    <div>
+                        <div class="tile-icon"><i class="fas fa-warehouse"></i></div>
+                        <div class="tile-title">Inventario</div>
+                        <div class="tile-desc">Ver inventario.</div>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm mt-2">Inventario</button>
+                </div>
+                <!-- Tile: Logística -->
+                <div class="sap-tile" onclick="location.href='logistica_trabajador.html'">
+                    <div>
+                        <div class="tile-icon"><i class="fas fa-truck"></i></div>
+                        <div class="tile-title">Logística</div>
+                        <div class="tile-desc">Movimientos y guías.</div>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm mt-2">Ir a Logística</button>
+                </div>
+            </div>
+        </div>
+        <!-- Información adicional -->
+        <div class="row">
+            <div class="col-12">
+                <div class="info-card">
+                    <h5><i class="fas fa-lightbulb"></i> Información útil</h5>
+                    <ul class="mb-0">
+                        <li>Recuerda mantener tus datos personales actualizados en <strong>Mi Perfil</strong>.</li>
+                        <li>Ante dudas o problemas, contacta a tu supervisor o al área de soporte.</li>
+                        <li>Las solicitudes de insumos serán revisadas por el área de bodega.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

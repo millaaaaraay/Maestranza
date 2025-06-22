@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Informes Personalizados | Maestranza Unidos</title>
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<style>
+  body { background-color: #e5edf1; font-family: 'Nunito', sans-serif; }
+  .header-inv {
+    background: linear-gradient(90deg, #003366 60%, #007cc3 100%);
+    color: white;
+    border-radius: 0 0 12px 12px;
+    padding: 18px 0;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .header-inv .logo {
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-volver {
+    background: #007cc3;
+    color: white;
+    font-weight: 600;
+    border-radius: 5px;
+    margin-bottom: 24px;
+    transition: background 0.2s;
+  }
+  .btn-volver:hover {
+    background: #003366;
+  }
+  .form-section, .table-section {
+    background: white;
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    margin-bottom: 32px;
+  }
+  .table thead th {
+    background-color: #007cc3;
+    color: white;
+  }
+  .alert {
+    margin-top: 12px;
+  }
+</style>
+</head>
+<body>
+  <div class="header-inv">
+    <div class="logo">
+      <i class="fas fa-file-alt"></i> Maestranza Unidos - Informes Personalizados
+    </div>
+  </div>
+  <div class="container">
+    <a href="inventario_trabajador.html" class="btn btn-volver">
+      <i class="fas fa-arrow-left mr-1"></i> Volver
+    </a>
+
+    <section class="form-section">
+      <h4 class="mb-4 text-primary font-weight-bold">
+        <i class="fas fa-plus-circle mr-2"></i> Crear Nuevo Informe
+      </h4>
+      <form id="formCrearInforme" autocomplete="off">
+        <div class="form-group">
+          <label for="tituloInforme">Título del Informe</label>
+          <input type="text" class="form-control" id="tituloInforme" placeholder="Ej: Informe Mensual de Stock" required />
+        </div>
+        <div class="form-group">
+          <label for="descripcionInforme">Descripción</label>
+          <textarea class="form-control" id="descripcionInforme" rows="3" placeholder="Descripción breve del informe" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-save"></i> Guardar Informe
+        </button>
+      </form>
+      <div id="mensaje" class="alert d-none" role="alert"></div>
+    </section>
+
+    <section class="table-section">
+      <h4 class="mb-4 text-primary font-weight-bold">
+        <i class="fas fa-list mr-2"></i> Informes Guardados
+      </h4>
+      <table class="table table-bordered table-hover" id="tablaInformes">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Título</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Informes guardados aparecerán aquí -->
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+<script>
+  const form = document.getElementById('formCrearInforme');
+  const tabla = document.getElementById('tablaInformes').querySelector('tbody');
+  const mensaje = document.getElementById('mensaje');
+  let informes = [];
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const titulo = document.getElementById('tituloInforme').value.trim();
+    const descripcion = document.getElementById('descripcionInforme').value.trim();
+
+    if (!titulo || !descripcion) {
+      mostrarMensaje('Completa todos los campos.', 'danger');
+      return;
+    }
+
+    informes.push({ titulo, descripcion });
+    mostrarMensaje('Informe guardado con éxito.', 'success');
+    actualizarTabla();
+    form.reset();
+  });
+
+  function actualizarTabla() {
+    tabla.innerHTML = '';
+    informes.forEach((informe, i) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${informe.titulo}</td>
+        <td>${informe.descripcion}</td>
+      `;
+      tabla.appendChild(row);
+    });
+  }
+
+  function mostrarMensaje(texto, tipo) {
+    mensaje.textContent = texto;
+    mensaje.className = `alert alert-${tipo}`;
+    mensaje.classList.remove('d-none');
+    setTimeout(() => mensaje.classList.add('d-none'), 3000);
+  }
+</script>
+</body>
+</html>

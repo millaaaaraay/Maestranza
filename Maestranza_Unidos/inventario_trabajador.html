@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Inventario | Maestranza Unidos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body { background-color: #e5edf1; }
+        .header-inv {
+            background: linear-gradient(90deg, #003366 60%, #007cc3 100%);
+            color: #fff;
+            border-radius: 0 0 12px 12px;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 18px 0;
+            text-align: center;
+        }
+        .header-inv .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .modulos-section {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 32px 24px 24px 24px;
+            margin-bottom: 32px;
+        }
+        .modulo-tile {
+            background: #f7fafc;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            padding: 24px 12px;
+            text-align: center;
+            transition: box-shadow 0.2s, border-color 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .modulo-tile:hover {
+            box-shadow: 0 6px 18px rgba(0,60,120,0.13);
+            border-color: #007cc3;
+            background: #eaf6fb;
+        }
+        .modulo-tile .tile-icon {
+            font-size: 2.2rem;
+            color: #007cc3;
+            margin-bottom: 10px;
+        }
+        .modulo-tile .tile-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #003366;
+        }
+        .modulo-tile .tile-desc {
+            font-size: 0.97rem;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .modulo-tile .btn {
+            font-size: 0.93rem;
+            padding: 6px 18px;
+            margin-top: auto;
+        }
+        .btn-volver {
+            background: #007cc3;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: background 0.2s;
+            margin-bottom: 24px;
+        }
+        .btn-volver:hover {
+            background: #003366;
+            color: #fff;
+        }
+        @media (max-width: 767px) {
+            .header-inv .logo { font-size: 1.2rem; }
+            .modulo-tile { margin-bottom: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-inv">
+        <div class="logo">
+            <i class="fas fa-warehouse"></i> Maestranza Unidos - Inventario
+        </div>
+    </div>
+    <div class="container">
+        <a href="inicio_trabajador.html" class="btn btn-volver mb-3">
+            <i class="fas fa-arrow-left mr-1"></i> Volver
+        </a>
+        <div class="modulos-section">
+            <h4 class="mb-4 text-primary font-weight-bold">
+                <i class="fas fa-cubes mr-2"></i>Módulos de Inventario
+            </h4>
+            <div class="row justify-content-center">
+                <!-- Módulo: Registro de Movimientos -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='registro_movimiento.html'">
+                        <div class="tile-icon"><i class="fas fa-exchange-alt"></i></div>
+                        <div class="tile-title">Registro de Movimientos</div>
+                        <div class="tile-desc">Registra entradas y salidas de productos en el inventario.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Registro</button>
+                    </div>
+                </div>
+                <!-- Módulo: Validación de Existencia -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='validacion_existencia.html'">
+                        <div class="tile-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <div class="tile-title">Validación de Existencia</div>
+                        <div class="tile-desc">Consulta y valida el stock actual de productos.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Validación</button>
+                    </div>
+                </div>
+                <!-- Módulo: Fecha de Vencimiento y Alertas -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='fecha_vencimiento_alertas.html'">
+                        <div class="tile-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="tile-title">Fecha de Vencimiento y Alertas</div>
+                        <div class="tile-desc">Gestiona fechas de vencimiento y alertas de productos.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Fecha y Alertas</button>
+                    </div>
+                </div>
+                <!-- Módulo: Alertas por Lote/SKU -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='alertas_lote_sku.html'">
+                        <div class="tile-icon"><i class="fas fa-bell"></i></div>
+                        <div class="tile-title">Alertas por Lote/SKU</div>
+                        <div class="tile-desc">Visualiza y gestiona alertas por lote o SKU.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Alertas Lote/SKU</button>
+                    </div>
+                </div>
+                <!-- Módulo: Desglose de Producto Ingresado -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='desglose_producto.html'">
+                        <div class="tile-icon"><i class="fas fa-th-list"></i></div>
+                        <div class="tile-title">Desglose de Producto Ingresado</div>
+                        <div class="tile-desc">Consulta detalle y componentes de productos ingresados.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Desglose</button>
+                    </div>
+                </div>
+                <!-- Módulo: Informes Personalizados -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='informes_personalizados.html'">
+                        <div class="tile-icon"><i class="fas fa-file-alt"></i></div>
+                        <div class="tile-title">Informes Personalizados</div>
+                        <div class="tile-desc">Crea y visualiza informes personalizados del inventario.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Informes</button>
+                    </div>
+                </div>
+                <!-- Módulo: Exportar y Programación de Informes -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='exportacion_programacion_informes.html'">
+                        <div class="tile-icon"><i class="fas fa-file-export"></i></div>
+                        <div class="tile-title">Exportar y Programación de Informes</div>
+                        <div class="tile-desc">Configura exportación y envíos automáticos de informes.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Exportar</button>
+                    </div>
+                </div>
+                <!-- Módulo: Asignación de Ubicación -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='asignacion_ubicacion.html'">
+                        <div class="tile-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="tile-title">Asignación de Ubicación</div>
+                        <div class="tile-desc">Registra y asigna ubicación física de productos.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Ubicación</button>
+                    </div>
+                </div>
+                <!-- Módulo: Generación de Etiquetas -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='generacion_etiquetas.html'">
+                        <div class="tile-icon"><i class="fas fa-tags"></i></div>
+                        <div class="tile-title">Generación de Etiquetas</div>
+                        <div class="tile-desc">Genera etiquetas con información del producto para impresión.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Etiquetas</button>
+                    </div>
+                </div>
+                <!-- Módulo: Sugerencias de Ubicación -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='sugerencias_ubicacion.html'">
+                        <div class="tile-icon"><i class="fas fa-map-signs"></i></div>
+                        <div class="tile-title">Sugerencias de Ubicación</div>
+                        <div class="tile-desc">Visualiza sugerencias automáticas para ubicación de productos.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Sugerencias</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

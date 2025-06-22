@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Validación de Existencia | Maestranza Unidos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body { background-color: #e5edf1; font-family: 'Nunito', sans-serif; }
+        .header-inv {
+            background: linear-gradient(90deg, #003366 60%, #007cc3 100%);
+            color: white;
+            border-radius: 0 0 12px 12px;
+            padding: 18px 0;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .header-inv .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+        .form-section, .result-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 28px 24px;
+            margin-bottom: 32px;
+        }
+        .btn-maestranza {
+            background: #007cc3;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+        .btn-maestranza:hover {
+            background: #003366;
+            color: white;
+        }
+        .btn-volver {
+            background: #007cc3;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: background 0.2s;
+            margin-bottom: 24px;
+        }
+        .btn-volver:hover {
+            background: #003366;
+            color: white;
+        }
+        @media (max-width: 767px) {
+            .header-inv .logo { font-size: 1.4rem; }
+            .form-section, .result-section { padding: 14px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-inv">
+        <div class="logo">
+            <i class="fas fa-clipboard-check"></i> Maestranza Unidos - Validación de Existencia
+        </div>
+    </div>
+    <div class="container">
+        <a href="inventario_trabajador.html" class="btn btn-volver">
+            <i class="fas fa-arrow-left mr-1"></i> Volver
+        </a>
+        <div class="form-section">
+            <h4 class="mb-3 text-primary font-weight-bold">
+                <i class="fas fa-search mr-2"></i> Buscar Producto
+            </h4>
+            <form id="buscarProductoForm" autocomplete="off">
+                <div class="form-row align-items-end">
+                    <div class="form-group col-md-8">
+                        <label for="nombreProducto">Nombre del Producto</label>
+                        <input type="text" class="form-control" id="nombreProducto" placeholder="Ingrese el nombre del producto" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <button type="submit" class="btn btn-maestranza btn-block">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="resultado" class="result-section d-none">
+            <h5 class="mb-3 text-primary font-weight-bold">
+                <i class="fas fa-box-open mr-2"></i> Resultado de Existencia
+            </h5>
+            <div id="infoProducto"></div>
+        </div>
+    </div>
+    <script>
+        // Datos ejemplo (puedes ampliar o modificar)
+        const inventario = [
+            { nombre: "Taladro", stock: 12 },
+            { nombre: "Martillo", stock: 0 },
+            { nombre: "Caja de Tornillos", stock: 45 },
+            { nombre: "Guantes", stock: 8 }
+        ];
+
+        const form = document.getElementById('buscarProductoForm');
+        const resultadoDiv = document.getElementById('resultado');
+        const infoDiv = document.getElementById('infoProducto');
+        const inputNombre = document.getElementById('nombreProducto');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const nombre = inputNombre.value.trim().toLowerCase();
+            const producto = inventario.find(p => p.nombre.toLowerCase() === nombre);
+
+            if (producto) {
+                if (producto.stock > 0) {
+                    infoDiv.innerHTML = `
+                        <div class="alert alert-success mb-0">
+                            <strong>${producto.nombre}</strong> está disponible.<br>
+                            <b>Stock actual:</b> ${producto.stock} unidades.
+                        </div>`;
+                } else {
+                    infoDiv.innerHTML = `
+                        <div class="alert alert-warning mb-0">
+                            <strong>${producto.nombre}</strong> no tiene stock disponible.
+                        </div>`;
+                }
+            } else {
+                infoDiv.innerHTML = `
+                    <div class="alert alert-danger mb-0">
+                        Producto no encontrado en el inventario.
+                    </div>`;
+            }
+            resultadoDiv.classList.remove('d-none');
+            inputNombre.value = '';
+            inputNombre.focus();
+        });
+    </script>
+</body>
+</html>

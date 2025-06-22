@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Límites de Inventario | Maestranza Unidos S.A.</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { margin-top: 40px; }
+        .table thead th { background-color: #003366; color: #fff; }
+        .btn-guardar { background-color: #28a745; color: #fff; }
+        .btn-guardar:hover { background-color: #218838; }
+        .btn-eliminar { background-color: #dc3545; color: #fff; }
+        .btn-eliminar:hover { background-color: #c82333; }
+        .input-limite { width: 80px; }
+        .estado-bajo { background-color: #fff3cd !important; }
+        .estado-critico { background-color: #f8d7da !important; }
+        .estado-normal { background-color: #d4edda !important; }
+    </style>
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-industry"></i></div>
+                <div class="sidebar-brand-text mx-3">Maestranza Unidos</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active"><a class="nav-link" href="index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+            <hr class="sidebar-divider">
+            <li class="nav-item"><a class="nav-link" href="gestion_usuario.html"><i class="fas fa-users"></i> <span>Gestión de Usuarios</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="fas fa-chart-line"></i> <span>Dashboard Negocio</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="dashboard_supervision.html"><i class="fas fa-desktop"></i> <span>Dashboard de sistema</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="mantenimiento.html"><i class="fas fa-tools"></i> <span>Mantenimiento</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="alerta.html"><i class="fas fa-bell"></i> <span>Alerta Stock Mínimo</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-boxes"></i> <span>Límites de Inventario</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-exclamation-triangle"></i> <span>Alertas Automáticas</span></a></li>
+            <hr class="sidebar-divider">
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span></a></li>
+        </ul>
+        <!-- Fin Sidebar -->
+
+        <!-- Contenido principal -->
+        <div class="container">
+            <h2 class="mb-4 text-primary">Límites de Inventario</h2>
+            <div class="mb-3">
+                <button class="btn btn-info btn-sm" id="btnExportar"><i class="fas fa-file-excel"></i> Exportar a Excel</button>
+            </div>
+            <!-- Formulario para agregar producto -->
+            <form id="formAgregar" class="mb-4">
+                <div class="form-row">
+                    <div class="col"><input type="text" class="form-control" placeholder="Producto" required></div>
+                    <div class="col"><input type="text" class="form-control" placeholder="Categoría" required></div>
+                    <div class="col"><input type="text" class="form-control" placeholder="Proveedor" required></div>
+                    <div class="col"><input type="text" class="form-control" placeholder="Bodega" required></div>
+                    <div class="col"><input type="number" class="form-control" placeholder="Stock" min="0" required></div>
+                    <div class="col"><input type="number" class="form-control" placeholder="Límite Mínimo" min="0" required></div>
+                    <div class="col"><input type="number" class="form-control" placeholder="Límite Máximo" min="0" required></div>
+                    <div class="col"><button type="submit" class="btn btn-primary btn-sm">Agregar</button></div>
+                </div>
+            </form>
+            <table id="tablaInventario" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Proveedor</th>
+                        <th>Bodega</th>
+                        <th>Stock Actual</th>
+                        <th>Límite Mínimo</th>
+                        <th>Límite Máximo</th>
+                        <th>Estado</th>
+                        <th>Última Modificación</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tuerca M8</td>
+                        <td>Fijaciones</td>
+                        <td>FerroChile</td>
+                        <td>Bodega Central</td>
+                        <td>120</td>
+                        <td><input type="number" class="form-control input-limite" value="50" min="0"></td>
+                        <td><input type="number" class="form-control input-limite" value="200" min="0"></td>
+                        <td class="estado"></td>
+                        <td>2025-06-10</td>
+                        <td>
+                            <button class="btn btn-success btn-sm btn-guardar" data-toggle="tooltip" title="Guardar cambios"><i class="fas fa-save"></i></button>
+                            <button class="btn btn-danger btn-sm btn-eliminar" data-toggle="tooltip" title="Eliminar producto"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Perno 1/2"</td>
+                        <td>Fijaciones</td>
+                        <td>Industrias Atacama</td>
+                        <td>Bodega Norte</td>
+                        <td>80</td>
+                        <td><input type="number" class="form-control input-limite" value="30" min="0"></td>
+                        <td><input type="number" class="form-control input-limite" value="150" min="0"></td>
+                        <td class="estado"></td>
+                        <td>2025-06-11</td>
+                        <td>
+                            <button class="btn btn-success btn-sm btn-guardar" data-toggle="tooltip" title="Guardar cambios"><i class="fas fa-save"></i></button>
+                            <button class="btn btn-danger btn-sm btn-eliminar" data-toggle="tooltip" title="Eliminar producto"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Arandela 3/8"</td>
+                        <td>Fijaciones</td>
+                        <td>FerroChile</td>
+                        <td>Bodega Central</td>
+                        <td>200</td>
+                        <td><input type="number" class="form-control input-limite" value="60" min="0"></td>
+                        <td><input type="number" class="form-control input-limite" value="300" min="0"></td>
+                        <td class="estado"></td>
+                        <td>2025-06-12</td>
+                        <td>
+                            <button class="btn btn-success btn-sm btn-guardar" data-toggle="tooltip" title="Guardar cambios"><i class="fas fa-save"></i></button>
+                            <button class="btn btn-danger btn-sm btn-eliminar" data-toggle="tooltip" title="Eliminar producto"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Fin Contenido principal -->
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="modalConfirmacion" tabindex="-1" role="dialog" aria-labelledby="modalConfirmacionLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalConfirmacionLabel">Confirmar acción</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="modalMensaje">
+            ¿Está seguro que desea continuar?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="btnModalAceptar">Sí, continuar</button>
+          </div>
+          <div class="text-center my-3" id="modalLoader" style="display:none;">
+            <div class="spinner-border text-primary" role="status"></div>
+            <div>Cargando...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let accionPendiente = null;
+        let filaPendiente = null;
+
+        function actualizarEstadoFila(fila) {
+            var stock = parseInt(fila.find('td').eq(4).text());
+            var min = parseInt(fila.find('input').eq(0).val());
+            var max = parseInt(fila.find('input').eq(1).val());
+            var estadoTd = fila.find('.estado');
+            fila.removeClass('estado-bajo estado-critico estado-normal');
+            if (stock < min) {
+                estadoTd.text('Crítico');
+                fila.addClass('estado-critico');
+            } else if (stock == min || stock < (min + (max-min)*0.2)) {
+                estadoTd.text('Bajo');
+                fila.addClass('estado-bajo');
+            } else if (stock > max) {
+                estadoTd.text('Sobrestock');
+                fila.addClass('estado-bajo');
+            } else {
+                estadoTd.text('Normal');
+                fila.addClass('estado-normal');
+            }
+        }
+
+        $(document).ready(function() {
+            var tabla = $('#tablaInventario').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json"
+                },
+                "ordering": false
+            });
+
+            // Tooltips Bootstrap
+            $('[data-toggle="tooltip"]').tooltip();
+            $('#tablaInventario').on('draw.dt', function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+
+            // Estado inicial
+            $('#tablaInventario tbody tr').each(function() {
+                actualizarEstadoFila($(this));
+            });
+
+            // Actualizar estado al cambiar límites
+            $('#tablaInventario').on('input', '.input-limite', function() {
+                var fila = $(this).closest('tr');
+                actualizarEstadoFila(fila);
+            });
+
+            // Guardar cambios con modal
+            $('#tablaInventario').on('click', '.btn-guardar', function() {
+                filaPendiente = $(this).closest('tr');
+                accionPendiente = 'guardar';
+                $('#modalMensaje').text('¿Está seguro que desea guardar los cambios de este producto?');
+                $('#modalConfirmacion').modal('show');
+            });
+
+            // Eliminar fila con modal
+            $('#tablaInventario').on('click', '.btn-eliminar', function() {
+                filaPendiente = $(this).closest('tr');
+                accionPendiente = 'eliminar';
+                $('#modalMensaje').text('¿Está seguro que desea eliminar este producto?');
+                $('#modalConfirmacion').modal('show');
+            });
+
+            // Confirmar acción en el modal
+            $('#btnModalAceptar').on('click', function() {
+                $('#modalLoader').show();
+                $('.modal-footer').hide();
+                setTimeout(function() {
+                    $('#modalLoader').hide();
+                    $('.modal-footer').show();
+                    $('#modalConfirmacion').modal('hide');
+                    if (accionPendiente === 'guardar') {
+                        var producto = filaPendiente.find('td').eq(0).text();
+                        var min = filaPendiente.find('input').eq(0).val();
+                        var max = filaPendiente.find('input').eq(1).val();
+                        if (parseInt(min) > parseInt(max)) {
+                            alert('El límite mínimo no puede ser mayor que el máximo.');
+                            return;
+                        }
+                        var hoy = new Date().toISOString().slice(0,10);
+                        filaPendiente.find('td').eq(8).text(hoy);
+                        actualizarEstadoFila(filaPendiente);
+                        alert('Límites actualizados para ' + producto + ':\nMínimo: ' + min + '\nMáximo: ' + max);
+                    } else if (accionPendiente === 'eliminar') {
+                        tabla.row(filaPendiente).remove().draw();
+                    }
+                    accionPendiente = null;
+                    filaPendiente = null;
+                }, 2000);
+            });
+
+            // Agregar producto
+            $('#formAgregar').on('submit', function(e) {
+                e.preventDefault();
+                let valores = $(this).find('input').map(function(){ return $(this).val(); }).get();
+                let hoy = new Date().toISOString().slice(0,10);
+                let nuevaFila = tabla.row.add([
+                    valores[0], // Producto
+                    valores[1], // Categoría
+                    valores[2], // Proveedor
+                    valores[3], // Bodega
+                    valores[4], // Stock
+                    '<input type="number" class="form-control input-limite" value="'+valores[5]+'" min="0">',
+                    '<input type="number" class="form-control input-limite" value="'+valores[6]+'" min="0">',
+                    '<span class="estado"></span>',
+                    hoy,
+                    `<button class="btn btn-success btn-sm btn-guardar" data-toggle="tooltip" title="Guardar cambios"><i class="fas fa-save"></i></button>
+                     <button class="btn btn-danger btn-sm btn-eliminar" data-toggle="tooltip" title="Eliminar producto"><i class="fas fa-trash-alt"></i></button>`
+                ]).draw().node();
+                actualizarEstadoFila($(nuevaFila));
+                $('[data-toggle="tooltip"]').tooltip();
+                this.reset();
+            });
+
+            // Exportar a Excel (simple, solo tabla)
+            $('#btnExportar').on('click', function() {
+                var tablaHtml = document.getElementById('tablaInventario').outerHTML.replace(/ /g, '%20');
+                var a = document.createElement('a');
+                a.href = 'data:application/vnd.ms-excel,' + tablaHtml;
+                a.download = 'limites_inventario.xls';
+                a.click();
+            });
+
+            // Reset modal loader al cerrar
+            $('#modalConfirmacion').on('hidden.bs.modal', function () {
+                $('#modalLoader').hide();
+                $('.modal-footer').show();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Logística | Maestranza Unidos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body { background-color: #e5edf1; font-family: 'Nunito', sans-serif; }
+        .header-inv {
+            background: linear-gradient(90deg, #003366 60%, #007cc3 100%);
+            color: white;
+            border-radius: 0 0 12px 12px;
+            padding: 18px 0;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .header-inv .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn-volver {
+            background: #007cc3;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: background 0.2s;
+            margin-bottom: 24px;
+        }
+        .btn-volver:hover {
+            background: #003366;
+            color: white;
+        }
+        .modulos-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 32px 24px 24px 24px;
+            margin-bottom: 32px;
+        }
+        .modulo-tile {
+            background: #f7fafc;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            padding: 24px 12px;
+            text-align: center;
+            transition: box-shadow 0.2s, border-color 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .modulo-tile:hover {
+            box-shadow: 0 6px 18px rgba(0,60,120,0.13);
+            border-color: #007cc3;
+            background: #eaf6fb;
+        }
+        .modulo-tile .tile-icon {
+            font-size: 2.2rem;
+            color: #007cc3;
+            margin-bottom: 10px;
+        }
+        .modulo-tile .tile-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #003366;
+        }
+        .modulo-tile .tile-desc {
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .modulo-tile .btn {
+            font-size: 0.95rem;
+            padding: 8px 20px;
+            margin-top: auto;
+            border-radius: 20px;
+        }
+        .row.justify-content-center {
+            gap: 24px;
+        }
+        @media (max-width: 767px) {
+            .header-inv .logo { font-size: 1.4rem; }
+            .modulo-tile { margin-bottom: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-inv">
+        <div class="logo">
+            <i class="fas fa-truck"></i> Maestranza Unidos - Logística
+        </div>
+    </div>
+    <div class="container">
+        <a href="inicio_trabajador.html" class="btn btn-volver">
+            <i class="fas fa-arrow-left mr-1"></i> Volver
+        </a>
+        <div class="modulos-section">
+            <h4 class="mb-4 text-primary font-weight-bold">
+                <i class="fas fa-cogs mr-2"></i>Módulos de Logística
+            </h4>
+            <div class="row justify-content-center">
+                <!-- Módulo: Generación de Guías de Ingreso -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='generacion_guias.html'">
+                        <div class="tile-icon"><i class="fas fa-file-alt"></i></div>
+                        <div class="tile-title">Generación de Guías de Ingreso</div>
+                        <div class="tile-desc">Crear y gestionar guías para ingreso de productos.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Guías</button>
+                    </div>
+                </div>
+                <!-- Módulo: Kits para Despacho -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='kits_despacho_logistica.html'">
+                        <div class="tile-icon"><i class="fas fa-boxes"></i></div>
+                        <div class="tile-title">Kits para Despacho</div>
+                        <div class="tile-desc">Preparar kits listos para envío y despacho.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Kits</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
