@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Integración Inventario | Maestranza Unidos</title>
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<style>
+    body {
+        background-color: #e5edf1;
+        font-family: 'Nunito', sans-serif;
+        padding-bottom: 50px;
+    }
+    .header {
+        background: linear-gradient(90deg, #003366 65%, #007cc3 100%);
+        color: white;
+        padding: 18px 36px;
+        font-weight: 700;
+        font-size: 1.8rem;
+        text-align: center;
+        border-radius: 0 0 16px 16px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        position: relative;
+    }
+    .btn-volver {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: #007cc3;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.9rem;
+    }
+    .btn-volver:hover {
+        background-color: #005a8c;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+    }
+    thead th {
+        background: #007cc3;
+        color: #fff;
+        padding: 12px;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 700;
+    }
+    tbody tr {
+        background: #f7fafc;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        transition: background 0.3s ease;
+    }
+    tbody tr:hover {
+        background: #d0e8fb;
+    }
+    tbody td {
+        text-align: center;
+        padding: 14px 10px;
+        vertical-align: middle;
+    }
+    .btn-recibir {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 7px 14px;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+    .btn-recibir:hover {
+        background-color: #1e7e34;
+    }
+    #mensaje {
+        margin-top: 20px;
+        padding: 15px;
+        font-weight: 600;
+        border-radius: 8px;
+        display: none;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        text-align: center;
+    }
+    #mensaje.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    #mensaje.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <button class="btn-volver" onclick="window.location.href='inicio_trabajador.html'">
+        <i class="fas fa-arrow-left"></i> Volver
+    </button>
+    <i class="fas fa-project-diagram"></i> Integración Inventario
+</div>
+
+<div class="container">
+
+    <h5>Órdenes de Compra Pendientes</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>ID Orden</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody id="ordenesPendientes"></tbody>
+    </table>
+
+    <h5 class="mt-5">Inventario Actualizado</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>ID Producto</th>
+                <th>Nombre</th>
+                <th>Stock Actual</th>
+            </tr>
+        </thead>
+        <tbody id="tablaInventario"></tbody>
+    </table>
+
+    <div id="mensaje"></div>
+</div>
+
+<script>
+    // Datos simulados inventario
+    const inventario = [
+        { id: 1, nombre: "Taladro", stock: 5 },
+        { id: 2, nombre: "Martillo", stock: 12 },
+        { id: 3, nombre: "Tornillos", stock: 20 },
+        { id: 4, nombre: "Guantes", stock: 8 }
+    ];
+
+    // Órdenes simuladas pendientes (productoId vinculado a inventario)
+    const ordenesCompra = [
+        { id: 101, productoId: 1, cantidad: 10, estado: "Pendiente" },
+        { id: 102, productoId: 3, cantidad: 50, estado: "Pendiente" },
+        { id: 103, productoId: 4, cantidad: 15, estado: "Pendiente" }
+    ];
+
+    const tbodyOrdenes = document.getElementById("ordenesPendientes");
+    const tbodyInventario = document.getElementById("tablaInventario");
+    const mensaje = document.getElementById("mensaje");
+
+    function mostrarOrdenes() {
+        tbodyOrdenes.innerHTML = "";
+        if (ordenesCompra.length === 0) {
+            tbodyOrdenes.innerHTML = `<tr><td colspan="5" class="text-center">No hay órdenes pendientes.</td></tr>`;
+            return;
+        }
+        ordenesCompra.forEach(orden => {
+            const producto = inventario.find(p => p.id === orden.productoId);
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${orden.id}</td>
+                <td>${producto ? producto.nombre : "Producto desconocido"}</td>
+                <td>${orden.cantidad}</td>
+                <td>${orden.estado}</td>
+                <td>
+                    ${orden.estado === "Pendiente" ? `<button class="btn-recibir" onclick="recibirOrden(${orden.id})">Marcar como Recibida</button>` : "Recibida"}
+                </td>
+            `;
+            tbodyOrdenes.appendChild(tr);
+        });
+    }
+
+    function mostrarInventario() {
+        tbodyInventario.innerHTML = "";
+        inventario.forEach(prod => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${prod.id}</td>
+                <td>${prod.nombre}</td>
+                <td>${prod.stock}</td>
+            `;
+            tbodyInventario.appendChild(tr);
+        });
+    }
+
+    function recibirOrden(idOrden) {
+        const orden = ordenesCompra.find(o => o.id === idOrden);
+        if (!orden || orden.estado !== "Pendiente") {
+            mostrarMensaje("Orden no válida o ya procesada", "error");
+            return;
+        }
+        // Actualiza stock en inventario
+        const producto = inventario.find(p => p.id === orden.productoId);
+        if (!producto) {
+            mostrarMensaje("Producto de orden no encontrado", "error");
+            return;
+        }
+
+        producto.stock += orden.cantidad;
+        orden.estado = "Recibida";
+
+        mostrarMensaje(`Orden #${orden.id} recibida. Stock actualizado para ${producto.nombre}.`, "success");
+        mostrarOrdenes();
+        mostrarInventario();
+    }
+
+    function mostrarMensaje(texto, tipo) {
+        mensaje.textContent = texto;
+        mensaje.className = tipo === "success" ? "success" : "error";
+        mensaje.style.display = "block";
+        setTimeout(() => {
+            mensaje.style.display = "none";
+        }, 4000);
+    }
+
+    mostrarOrdenes();
+    mostrarInventario();
+</script>
+
+</body>
+</html>

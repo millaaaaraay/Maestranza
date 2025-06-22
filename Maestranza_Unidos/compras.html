@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Compras | Maestranza Unidos S.A.</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #e5edf1;
+        }
+        .header-comp {
+            background: linear-gradient(90deg, #003366 65%, #007cc3 100%);
+            color: #fff;
+            border-radius: 0 0 16px 16px;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 36px;
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .container {
+            margin-top: 40px;
+        }
+        .modulos-section {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 32px 24px 24px 24px;
+            margin-bottom: 32px;
+        }
+        .modulo-tile {
+            background: #f7fafc;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            padding: 24px 12px;
+            text-align: center;
+            transition: box-shadow 0.2s, border-color 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .modulo-tile:hover {
+            box-shadow: 0 6px 18px rgba(0,60,120,0.13);
+            border-color: #007cc3;
+            background: #eaf6fb;
+        }
+        .modulo-tile .tile-icon {
+            font-size: 2.5rem;
+            color: #007cc3;
+            margin-bottom: 10px;
+        }
+        .modulo-tile .tile-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #003366;
+        }
+        .modulo-tile .tile-desc {
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .modulo-tile .btn {
+            font-size: 0.95rem;
+            padding: 8px 22px;
+            margin-top: auto;
+            border-radius: 6px;
+        }
+        .btn-volver {
+            background: #007cc3;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: background 0.2s;
+            margin-bottom: 24px;
+            padding: 8px 20px;
+            display: inline-block;
+        }
+        .btn-volver:hover {
+            background: #003366;
+            color: #fff;
+            text-decoration: none;
+        }
+        @media (max-width: 767px) {
+            .modulo-tile {
+                margin-bottom: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-comp">
+        <i class="fas fa-shopping-cart"></i> Compras y Proveedores
+    </div>
+    <div class="container">
+        <a href="inicio_trabajador.html" class="btn btn-volver">
+            <i class="fas fa-arrow-left mr-1"></i> Volver al Inicio
+        </a>
+        <div class="modulos-section">
+            <h4 class="mb-4 text-primary font-weight-bold">
+                Módulos de Compras
+            </h4>
+            <div class="row justify-content-center">
+                <!-- Historial de Compras -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='historial_compras.html'">
+                        <div class="tile-icon"><i class="fas fa-receipt"></i></div>
+                        <div class="tile-title">Historial de Compras</div>
+                        <div class="tile-desc">Consulta el historial completo de compras realizadas.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Historial</button>
+                    </div>
+                </div>
+                <!-- Historial de Proveedores -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='historial_proveedores.html'">
+                        <div class="tile-icon"><i class="fas fa-users"></i></div>
+                        <div class="tile-title">Historial de Proveedores</div>
+                        <div class="tile-desc">Visualiza proveedores y utiliza filtros de búsqueda.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Proveedores</button>
+                    </div>
+                </div>
+                <!-- Gestión de Proveedores -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='gestion_proveedores.html'">
+                        <div class="tile-icon"><i class="fas fa-user-cog"></i></div>
+                        <div class="tile-title">Gestión de Proveedores</div>
+                        <div class="tile-desc">Crea y administra proveedores.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Gestión</button>
+                    </div>
+                </div>
+                <!-- Editar Proveedor -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='editar_proveedor.html'">
+                        <div class="tile-icon"><i class="fas fa-user-edit"></i></div>
+                        <div class="tile-title">Editar Proveedor</div>
+                        <div class="tile-desc">Modifica datos de proveedores existentes.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Editar</button>
+                    </div>
+                </div>
+                <!-- Órdenes de Compra Automáticas -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='ordenes_automaticas.html'">
+                        <div class="tile-icon"><i class="fas fa-sync-alt"></i></div>
+                        <div class="tile-title">Órdenes de Compra Automáticas</div>
+                        <div class="tile-desc">Automatiza órdenes cuando el stock es bajo.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Automatización</button>
+                    </div>
+                </div>
+                <!-- Stock Crítico -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='stock_critico.html'">
+                        <div class="tile-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="tile-title">Stock Crítico</div>
+                        <div class="tile-desc">Visualiza productos en stock crítico.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Stock Crítico</button>
+                    </div>
+                </div>
+                <!-- Integración con Inventario -->
+                <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                    <div class="modulo-tile w-100" onclick="location.href='integracion_inventario.html'">
+                        <div class="tile-icon"><i class="fas fa-link"></i></div>
+                        <div class="tile-title">Integración con Inventario</div>
+                        <div class="tile-desc">Sincroniza datos con el módulo de inventario.</div>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Ir a Integración</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

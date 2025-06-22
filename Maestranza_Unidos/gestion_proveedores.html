@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestión de Proveedores | Maestranza Unidos</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #e5edf1;
+            font-family: 'Nunito', sans-serif;
+        }
+        .header-gestion {
+            background: linear-gradient(90deg, #003366 65%, #007cc3 100%);
+            color: #fff;
+            border-radius: 0 0 16px 16px;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 0 36px;
+        }
+        .container {
+            margin-top: 40px;
+        }
+        .btn-volver {
+            background: #007cc3;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            padding: 8px 20px;
+            margin-bottom: 20px;
+            display: inline-block;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-volver:hover {
+            background: #003366;
+            color: white;
+            text-decoration: none;
+        }
+        .form-section, .table-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+        }
+        .form-group label {
+            font-weight: 600;
+        }
+        table thead {
+            background: #007cc3;
+            color: white;
+        }
+        table tbody tr:hover {
+            background: #eaf6fb;
+        }
+        .btn-edit {
+            background-color: #ffc107;
+            color: #212529;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 6px;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-gestion">
+        <i class="fas fa-user-tie mr-2"></i> Gestión de Proveedores
+    </div>
+    <div class="container">
+        <a href="compras.html" class="btn-volver">
+            <i class="fas fa-arrow-left mr-1"></i> Volver a Compras
+        </a>
+
+        <section class="form-section">
+            <h4 class="mb-4 text-primary font-weight-bold">Crear / Editar Proveedor</h4>
+            <form id="proveedorForm" autocomplete="off">
+                <input type="hidden" id="proveedorId" />
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" class="form-control" placeholder="Nombre proveedor" required />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="rut">RUT</label>
+                        <input type="text" id="rut" class="form-control" placeholder="RUT proveedor" required />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="contacto">Contacto</label>
+                        <input type="text" id="contacto" class="form-control" placeholder="Nombre contacto" required />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="estado">Estado</label>
+                        <select id="estado" class="form-control" required>
+                            <option value="">Seleccione...</option>
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save mr-1"></i> Guardar
+                </button>
+                <button type="button" id="btnCancelar" class="btn btn-secondary ml-2" style="display:none;">
+                    Cancelar
+                </button>
+            </form>
+        </section>
+
+        <section class="table-section">
+            <h5 class="mb-3 text-primary font-weight-bold">Lista de Proveedores</h5>
+            <table class="table table-bordered table-hover" id="tablaProveedores">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>RUT</th>
+                        <th>Contacto</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filas agregadas por JS -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        let proveedores = [
+            { id: 1, nombre: "Proveedora A", rut: "12.345.678-9", contacto: "Juan Pérez", estado: "Activo" },
+            { id: 2, nombre: "Suministros B", rut: "98.765.432-1", contacto: "María López", estado: "Inactivo" }
+        ];
+        let editandoId = null;
+
+        const form = document.getElementById("proveedorForm");
+        const tbody = document.querySelector("#tablaProveedores tbody");
+        const btnCancelar = document.getElementById("btnCancelar");
+
+        function renderTabla() {
+            tbody.innerHTML = "";
+            if(proveedores.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center">No hay proveedores registrados.</td></tr>`;
+                return;
+            }
+            proveedores.forEach((p, idx) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${idx+1}</td>
+                    <td>${p.nombre}</td>
+                    <td>${p.rut}</td>
+                    <td>${p.contacto}</td>
+                    <td>${p.estado}</td>
+                    <td>
+                        <button class="btn-edit" onclick="editarProveedor(${p.id})" title="Editar"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="eliminarProveedor(${p.id})" title="Eliminar"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function limpiarFormulario() {
+            form.reset();
+            document.getElementById("proveedorId").value = "";
+            editandoId = null;
+            btnCancelar.style.display = "none";
+        }
+
+        function editarProveedor(id) {
+            const p = proveedores.find(prov => prov.id === id);
+            if(!p) return;
+            editandoId = id;
+            document.getElementById("proveedorId").value = p.id;
+            document.getElementById("nombre").value = p.nombre;
+            document.getElementById("rut").value = p.rut;
+            document.getElementById("contacto").value = p.contacto;
+            document.getElementById("estado").value = p.estado;
+            btnCancelar.style.display = "inline-block";
+        }
+
+        function eliminarProveedor(id) {
+            if(confirm("¿Está seguro que desea eliminar este proveedor?")) {
+                proveedores = proveedores.filter(p => p.id !== id);
+                if(editandoId === id) limpiarFormulario();
+                renderTabla();
+            }
+        }
+
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            const nombre = document.getElementById("nombre").value.trim();
+            const rut = document.getElementById("rut").value.trim();
+            const contacto = document.getElementById("contacto").value.trim();
+            const estado = document.getElementById("estado").value;
+
+            if(!nombre || !rut || !contacto || !estado) {
+                alert("Por favor, complete todos los campos.");
+                return;
+            }
+
+            if(editandoId) {
+                // Editar
+                const idx = proveedores.findIndex(p => p.id === editandoId);
+                if(idx !== -1) {
+                    proveedores[idx] = { id: editandoId, nombre, rut, contacto, estado };
+                }
+            } else {
+                // Crear nuevo proveedor con ID auto incremental
+                const nuevoId = proveedores.length ? Math.max(...proveedores.map(p => p.id)) + 1 : 1;
+                proveedores.push({ id: nuevoId, nombre, rut, contacto, estado });
+            }
+            limpiarFormulario();
+            renderTabla();
+        });
+
+        btnCancelar.addEventListener("click", limpiarFormulario);
+
+        // Inicializar tabla al cargar
+        renderTabla();
+    </script>
+</body>
+</html>
