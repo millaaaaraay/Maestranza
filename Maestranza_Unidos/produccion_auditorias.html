@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Producción y Auditorías | Maestranza Unidos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #e5edf1;
+            font-family: 'Nunito', sans-serif;
+            padding-bottom: 50px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: linear-gradient(90deg, #003366 65%, #007cc3 100%);
+            color: white;
+            padding: 18px 36px;
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-align: center;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .btn-volver {
+            background: #007cc3;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            padding: 8px 20px;
+            margin-bottom: 20px;
+            display: inline-block;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-volver:hover {
+            background: #003366;
+            color: white;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+            flex-grow: 1;
+        }
+        .modulos-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .modulo-tile {
+            background: #f7fafc;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 28px 18px;
+            text-align: center;
+            transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .modulo-tile:hover {
+            box-shadow: 0 8px 24px rgba(0,60,120,0.13);
+            border-color: #007cc3;
+            background: #eaf6fb;
+            transform: translateY(-4px) scale(1.03);
+        }
+        .modulo-icon {
+            font-size: 3rem;
+            color: #007cc3;
+            margin-bottom: 15px;
+        }
+        .modulo-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 10px;
+        }
+        .modulo-desc {
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 15px;
+        }
+        .btn-ir {
+            background: #007cc3;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: auto;
+            transition: background 0.2s;
+            align-self: center;
+        }
+        .btn-ir:hover {
+            background: #003366;
+            color: white;
+            text-decoration: none;
+        }
+        footer {
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 0.9rem;
+            color: #666;
+            background: #f1f1f1;
+            border-top: 1px solid #ccc;
+            margin-top: 40px;
+        }
+        /* Responsive fix for small devices */
+        @media (max-width: 575.98px) {
+            .modulos-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Producción y Auditorías
+</header>
+
+<div class="container">
+    <a href="inicio_trabajador.html" class="btn-volver">
+        <i class="fas fa-arrow-left mr-1"></i> Volver
+    </a>
+    <div class="modulos-row">
+        <div class="modulo-tile">
+            <div class="modulo-icon"><i class="fas fa-tasks"></i></div>
+            <div class="modulo-title">Tareas de Producción</div>
+            <div class="modulo-desc">Gestiona y supervisa las tareas asignadas en producción.</div>
+            <a href="tareas_produccion.html" class="btn-ir" title="Ir a Tareas de Producción">Ir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="modulo-tile">
+            <div class="modulo-icon"><i class="fas fa-cogs"></i></div>
+            <div class="modulo-title">Órdenes de Ensamblaje</div>
+            <div class="modulo-desc">Crea y administra las órdenes para ensamblar productos.</div>
+            <a href="generacion_ordenes_ensamblaje.html" class="btn-ir" title="Ir a Órdenes de Ensamblaje">Ir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="modulo-tile">
+            <div class="modulo-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="modulo-title">Alertas por Stock</div>
+            <div class="modulo-desc">Visualiza alertas críticas sobre el stock de insumos.</div>
+            <a href="alertas_stock.html" class="btn-ir" title="Ir a Alertas por Stock">Ir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="modulo-tile">
+            <div class="modulo-icon"><i class="fas fa-history"></i></div>
+            <div class="modulo-title">Historial de Movimientos</div>
+            <div class="modulo-desc">Consulta el historial detallado de movimientos en producción e inventario.</div>
+            <a href="historial_movimientos.html" class="btn-ir" title="Ir a Historial de Movimientos">Ir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="modulo-tile">
+            <div class="modulo-icon"><i class="fas fa-file-alt"></i></div>
+            <div class="modulo-title">Informes de Inventario</div>
+            <div class="modulo-desc">Genera y visualiza reportes de inventario para producción.</div>
+            <a href="informes_inventario.html" class="btn-ir" title="Ir a Informes de Inventario">Ir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="modulo-tile">
+            <div class="modulo-icon"><i class="fas fa-clipboard-list"></i></div>
+            <div class="modulo-title">Historial de Auditorías</div>
+            <div class="modulo-desc">Revisa registros y resultados de auditorías anteriores.</div>
+            <a href="historial_auditorias.html" class="btn-ir" title="Ir a Historial de Auditorías">Ir <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    &copy; 2025 Maestranza Unidos. Todos los derechos reservados.
+</footer>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

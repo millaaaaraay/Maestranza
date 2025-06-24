@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Generación de Órdenes de Ensamblaje | Maestranza Unidos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<style>
+body { background-color: #e5edf1; font-family: 'Nunito', sans-serif; padding: 20px; }
+.header-inv {
+    background: linear-gradient(90deg, #003366 60%, #007cc3 100%);
+    color: white;
+    padding: 18px 0;
+    border-radius: 0 0 12px 12px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+.btn-volver {
+    margin-bottom: 20px;
+    background: #007cc3;
+    color: white;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+}
+.btn-volver:hover {
+    background: #005a8c;
+}
+.form-group label {
+    font-weight: 600;
+}
+</style>
+</head>
+<body>
+<div class="header-inv">
+    <i class="fas fa-cogs"></i> Generación de Órdenes de Ensamblaje
+</div>
+<button class="btn-volver" onclick="window.location.href='inicio_trabajador.html'">
+    <i class="fas fa-arrow-left"></i> Volver
+</button>
+
+<form id="ordenEnsamblajeForm" class="bg-white p-4 rounded shadow-sm">
+    <div class="form-group">
+        <label for="producto">Producto a ensamblar</label>
+        <input type="text" class="form-control" id="producto" placeholder="Nombre del producto" required>
+    </div>
+    <div class="form-group">
+        <label for="cantidad">Cantidad</label>
+        <input type="number" class="form-control" id="cantidad" min="1" value="1" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Generar Orden</button>
+</form>
+
+<script>
+    document.getElementById('ordenEnsamblajeForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        const producto = document.getElementById('producto').value.trim();
+        const cantidad = parseInt(document.getElementById('cantidad').value);
+
+        if(!producto || cantidad < 1){
+            alert('Por favor ingrese datos válidos.');
+            return;
+        }
+
+        alert(`Orden de ensamblaje generada para ${cantidad} unidades de ${producto}.`);
+        this.reset();
+    });
+</script>
+</body>
+</html>

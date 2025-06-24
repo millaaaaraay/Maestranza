@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Historial de Movimientos | Maestranza Unidos</title>
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<style>
+    body {
+        background-color: #e5edf1;
+        font-family: 'Nunito', sans-serif;
+        padding-bottom: 50px;
+    }
+    .header {
+        background: linear-gradient(90deg, #003366 65%, #007cc3 100%);
+        color: white;
+        padding: 18px 36px;
+        font-weight: 700;
+        font-size: 1.8rem;
+        text-align: center;
+        border-radius: 0 0 16px 16px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        position: relative;
+    }
+    .btn-volver {
+        background: #007cc3;
+        color: white;
+        font-weight: 600;
+        border-radius: 5px;
+        padding: 8px 20px;
+        margin-bottom: 20px;
+        display: inline-block;
+        text-decoration: none;
+        transition: background 0.2s;
+    }
+    .btn-volver:hover {
+        background: #003366;
+        color: white;
+        text-decoration: none;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    thead th {
+        background: #007cc3;
+        color: #fff;
+        padding: 12px;
+        font-weight: 700;
+        text-align: center;
+        border-radius: 6px 6px 0 0;
+    }
+    tbody tr:nth-child(even) {
+        background-color: #f7fafc;
+    }
+    tbody tr:hover {
+        background-color: #d0e8fb;
+    }
+    tbody td {
+        padding: 10px;
+        text-align: center;
+        vertical-align: middle;
+        border-bottom: 1px solid #ddd;
+    }
+    .filter-section {
+        margin-bottom: 20px;
+    }
+    .filter-section label {
+        font-weight: 600;
+        margin-right: 10px;
+    }
+    .filter-section select,
+    .filter-section input[type="date"] {
+        padding: 6px 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-right: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    Historial de Movimientos
+</div>
+
+<div class="container">
+    <a href="produccion_auditorias.html" class="btn-volver">
+        <i class="fas fa-arrow-left mr-1"></i> Volver
+    </a>
+
+    <section class="filter-section">
+        <label for="tipoMovimiento">Tipo de Movimiento:</label>
+        <select id="tipoMovimiento" onchange="filtrarMovimientos()">
+            <option value="todos">Todos</option>
+            <option value="entrada">Entrada</option>
+            <option value="salida">Salida</option>
+            <option value="ajuste">Ajuste</option>
+        </select>
+
+        <label for="fechaDesde">Desde:</label>
+        <input type="date" id="fechaDesde" onchange="filtrarMovimientos()" />
+
+        <label for="fechaHasta">Hasta:</label>
+        <input type="date" id="fechaHasta" onchange="filtrarMovimientos()" />
+    </section>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID Movimiento</th>
+                <th>Tipo</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Fecha</th>
+                <th>Responsable</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaMovimientos">
+            <!-- Datos cargados por JS -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Datos simulados movimientos
+    const movimientos = [
+        { id: 1, tipo: "entrada", producto: "Taladro", cantidad: 5, fecha: "2025-06-15", responsable: "Juan Pérez", observaciones: "Ingreso bodega" },
+        { id: 2, tipo: "salida", producto: "Martillo", cantidad: 3, fecha: "2025-06-16", responsable: "María López", observaciones: "Despacho a planta" },
+        { id: 3, tipo: "ajuste", producto: "Tornillos", cantidad: -10, fecha: "2025-06-17", responsable: "Carlos Ruiz", observaciones: "Ajuste stock" },
+        { id: 4, tipo: "entrada", producto: "Guantes", cantidad: 20, fecha: "2025-06-18", responsable: "Ana Gómez", observaciones: "Compra proveedores" }
+    ];
+
+    const tabla = document.getElementById("tablaMovimientos");
+
+    function mostrarMovimientos(lista) {
+        tabla.innerHTML = "";
+        if (lista.length === 0) {
+            tabla.innerHTML = `<tr><td colspan="7" class="text-center">No hay movimientos que mostrar.</td></tr>`;
+            return;
+        }
+        lista.forEach(m => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${m.id}</td>
+                <td>${m.tipo.charAt(0).toUpperCase() + m.tipo.slice(1)}</td>
+                <td>${m.producto}</td>
+                <td>${m.cantidad}</td>
+                <td>${m.fecha}</td>
+                <td>${m.responsable}</td>
+                <td>${m.observaciones}</td>
+            `;
+            tabla.appendChild(tr);
+        });
+    }
+
+    function filtrarMovimientos() {
+        const tipo = document.getElementById("tipoMovimiento").value;
+        const desde = document.getElementById("fechaDesde").value;
+        const hasta = document.getElementById("fechaHasta").value;
+
+        let filtrados = movimientos;
+
+        if (tipo !== "todos") {
+            filtrados = filtrados.filter(m => m.tipo === tipo);
+        }
+        if (desde) {
+            filtrados = filtrados.filter(m => m.fecha >= desde);
+        }
+        if (hasta) {
+            filtrados = filtrados.filter(m => m.fecha <= hasta);
+        }
+
+        mostrarMovimientos(filtrados);
+    }
+
+    // Inicializar con todos los movimientos
+    mostrarMovimientos(movimientos);
+</script>
+
+</body>
+</html>

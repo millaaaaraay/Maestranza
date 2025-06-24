@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Historial de Auditorías | Maestranza Unidos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<style>
+body { background-color: #e5edf1; font-family: 'Nunito', sans-serif; padding: 20px;}
+.header-inv {
+    background: linear-gradient(90deg, #003366 60%, #007cc3 100%);
+    color: white;
+    padding: 18px 0;
+    border-radius: 0 0 12px 12px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+.btn-volver {
+    margin-bottom: 20px;
+    background: #007cc3;
+    color: white;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+}
+.btn-volver:hover {
+    background: #005a8c;
+}
+table {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background: #007cc3;
+    color: white;
+}
+tr:hover {
+    background: #eaf6fb;
+}
+</style>
+</head>
+<body>
+<div class="header-inv">
+    <i class="fas fa-clipboard-list"></i> Historial de Auditorías
+</div>
+<button class="btn-volver" onclick="window.location.href='inicio_trabajador.html'">
+    <i class="fas fa-arrow-left"></i> Volver
+</button>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID Auditoría</th>
+            <th>Fecha</th>
+            <th>Responsable</th>
+            <th>Resultado</th>
+            <th>Comentarios</th>
+        </tr>
+    </thead>
+    <tbody id="tablaAuditorias">
+        <!-- Auditorías listadas aquí -->
+    </tbody>
+</table>
+
+<script>
+    const auditorias = [
+        {id: 1, fecha: '2025-05-10', responsable: 'Benjamín Contreras', resultado: 'Aprobado', comentarios: 'Sin observaciones'},
+        {id: 2, fecha: '2025-06-01', responsable: 'Millaray Esposito', resultado: 'Con observaciones', comentarios: 'Revisar proceso de ensamblaje'}
+    ];
+
+    const tbody = document.getElementById('tablaAuditorias');
+    auditorias.forEach(audit => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${audit.id}</td>
+            <td>${audit.fecha}</td>
+            <td>${audit.responsable}</td>
+            <td>${audit.resultado}</td>
+            <td>${audit.comentarios}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+</script>
+</body>
+</html>

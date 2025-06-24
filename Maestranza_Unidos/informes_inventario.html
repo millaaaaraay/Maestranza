@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Informes de Inventario | Maestranza Unidos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #e5edf1;
+            font-family: 'Nunito', sans-serif;
+            padding-bottom: 50px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: linear-gradient(90deg, #003366 65%, #007cc3 100%);
+            color: white;
+            padding: 18px 36px;
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-align: center;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .btn-volver {
+            background: #007cc3;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            padding: 8px 20px;
+            margin-bottom: 20px;
+            display: inline-block;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-volver:hover {
+            background: #003366;
+            color: white;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+            flex-grow: 1;
+        }
+        h2 {
+            color: #003366;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table thead {
+            background-color: #007cc3;
+            color: white;
+        }
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        table tbody tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 0.9rem;
+            color: #666;
+            background: #f1f1f1;
+            border-top: 1px solid #ccc;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Informes de Inventario
+</header>
+
+<div class="container">
+    <a href="produccion_auditorias.html" class="btn-volver">
+        <i class="fas fa-arrow-left mr-1"></i> Volver a Producción y Auditorías
+    </a>
+
+    <h2>Reporte General de Inventario</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Código</th>
+                <th>Cantidad Disponible</th>
+                <th>Stock Mínimo</th>
+                <th>Ubicación</th>
+                <th>Fecha Última Actualización</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Tornillo M8</td>
+                <td>TM8-001</td>
+                <td>1250</td>
+                <td>500</td>
+                <td>Bodega 1</td>
+                <td>2025-06-20</td>
+            </tr>
+            <tr>
+                <td>Tuerca M8</td>
+                <td>TU8-005</td>
+                <td>900</td>
+                <td>300</td>
+                <td>Bodega 2</td>
+                <td>2025-06-21</td>
+            </tr>
+            <tr>
+                <td>Perno M10</td>
+                <td>PM10-012</td>
+                <td>540</td>
+                <td>400</td>
+                <td>Bodega 1</td>
+                <td>2025-06-19</td>
+            </tr>
+            <!-- Más filas aquí -->
+        </tbody>
+    </table>
+
+    <p>
+        Este informe muestra el estado actual del inventario, permitiendo identificar productos con niveles bajos de stock y optimizar la gestión de insumos para producción.
+    </p>
+</div>
+
+<footer>
+    &copy; 2025 Maestranza Unidos. Todos los derechos reservados.
+</footer>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

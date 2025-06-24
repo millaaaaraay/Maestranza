@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Funcionalidad para Inventarios | Maestranza Unidos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<style>
+body { background-color: #e5edf1; font-family: 'Nunito', sans-serif; padding: 20px;}
+.header-inv {
+    background: linear-gradient(90deg, #003366 60%, #007cc3 100%);
+    color: white;
+    padding: 18px 0;
+    border-radius: 0 0 12px 12px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+.btn-volver {
+    margin-bottom: 20px;
+    background: #007cc3;
+    color: white;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+}
+.btn-volver:hover {
+    background: #005a8c;
+}
+table {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+thead th {
+    background-color: #007cc3;
+    color: white;
+    text-align: center;
+    padding: 12px;
+}
+tbody td {
+    text-align: center;
+    padding: 10px;
+}
+.btn-editar {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+.btn-editar:hover {
+    background-color: #1e7e34;
+}
+#mensaje {
+    margin-top: 20px;
+    padding: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    display: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    text-align: center;
+}
+#mensaje.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+</style>
+</head>
+<body>
+<div class="header-inv">
+    <i class="fas fa-boxes"></i> Funcionalidad para Inventarios
+</div>
+<button class="btn-volver" onclick="window.location.href='inventario_trabajador.html'">
+    <i class="fas fa-arrow-left"></i> Volver
+</button>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID Producto</th>
+            <th>Nombre</th>
+            <th>Stock Actual</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody id="tablaInventario"></tbody>
+</table>
+
+<div id="mensaje" class=""></div>
+
+<script>
+    // Datos simulados de inventario
+    let inventario = [
+        { id: 1, nombre: "Taladro", stock: 5 },
+        { id: 2, nombre: "Martillo", stock: 12 },
+        { id: 3, nombre: "Tornillos", stock: 20 },
+        { id: 4, nombre: "Guantes", stock: 8 }
+    ];
+
+    const tbody = document.getElementById('tablaInventario');
+    const mensaje = document.getElementById('mensaje');
+
+    // Mostrar tabla
+    function mostrarInventario() {
+        tbody.innerHTML = '';
+        inventario.forEach(producto => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${producto.id}</td>
+                <td>${producto.nombre}</td>
+                <td>${producto.stock}</td>
+                <td><button class="btn-editar" onclick="editarStock(${producto.id})">Editar Stock</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Función para editar stock
+    function editarStock(id) {
+        const producto = inventario.find(p => p.id === id);
+        if (!producto) return;
+
+        const nuevoStock = prompt(`Editar stock para ${producto.nombre} (actual: ${producto.stock}):`, producto.stock);
+        const nuevoStockNum = Number(nuevoStock);
+
+        if (nuevoStock === null) return; // Canceló prompt
+        if (isNaN(nuevoStockNum) || nuevoStockNum < 0) {
+            mostrarMensaje("Por favor ingresa un número válido y no negativo.", "error");
+            return;
+        }
+
+        producto.stock = nuevoStockNum;
+        mostrarInventario();
+        mostrarMensaje(`Stock de ${producto.nombre} actualizado a ${nuevoStockNum}.`, "success");
+    }
+
+    // Mostrar mensaje temporal
+    function mostrarMensaje(texto, tipo) {
+        mensaje.textContent = texto;
+        mensaje.className = tipo === "success" ? "success" : "error";
+        mensaje.style.display = "block";
+        setTimeout(() => {
+            mensaje.style.display = "none";
+        }, 3500);
+    }
+
+    mostrarInventario();
+</script>
+
+</body>
+</html>
