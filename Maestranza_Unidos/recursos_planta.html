@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Recursos y Planta | Maestranza Unidos S.A.</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #e5edf1;
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+        }
+        .sap-header {
+            background: linear-gradient(90deg, #003366 65%, #007cc3 100%);
+            color: white;
+            padding: 16px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo i {
+            font-size: 2.2rem;
+        }
+        .header-actions {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+        .header-btn {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 1rem;
+            padding: 7px 17px 7px 14px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-weight: 500;
+            background: #fff;
+            color: #003366;
+            transition: background 0.16s, color 0.16s, box-shadow 0.18s;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.04);
+            text-decoration: none;
+        }
+        .header-btn i {
+            font-size: 1.11em;
+        }
+        .header-btn:hover,
+        .header-btn:focus {
+            background: #f4f8fb;
+            color: #007cc3;
+            text-decoration: none;
+        }
+        .header-btn.logout {
+            background: #d92f37;
+            color: #fff;
+            border: none;
+            box-shadow: 0 2px 8px rgba(216, 47, 55, 0.08);
+            transition: background 0.16s, color 0.16s;
+        }
+        .header-btn.logout:hover,
+        .header-btn.logout:focus {
+            background: #ab1d22;
+            color: #fff;
+        }
+        .profile-link {
+            color: #fff !important;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .profile-link:hover,
+        .profile-link:focus {
+            color: #eaf6fb !important;
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 980px;
+            margin: 36px auto;
+            background: white;
+            padding: 30px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 24px;
+            border-bottom: 3px solid #007cc3;
+            padding-bottom: 6px;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+            gap: 24px;
+        }
+        .menu-item {
+            background: #f7fafc;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 24px 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 210px;
+            border: 2px solid #f0f4f8;
+        }
+        .menu-item:hover {
+            box-shadow: 0 8px 24px rgba(0,60,120,0.13);
+            border-color: #007cc3;
+            background: #eaf6fb;
+            transform: translateY(-4px) scale(1.03);
+        }
+        .menu-item i {
+            font-size: 2.2rem;
+            color: #007cc3;
+            margin-bottom: 10px;
+        }
+        .menu-item span {
+            font-weight: 700;
+            font-size: 1.13rem;
+            color: #003366;
+            margin-bottom: 6px;
+        }
+        .menu-item .btn {
+            font-size: 0.95rem;
+            padding: 7px 18px;
+            margin-top: auto;
+            border-radius: 20px;
+        }
+        /* Responsive */
+        @media (max-width: 576px) {
+            .container {
+                margin: 20px 12px;
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sap-header">
+        <div class="logo">
+            <i class="fas fa-tools"></i> Recursos y Planta
+        </div>
+        <div class="header-actions">
+            <a href="inicio_trabajador.html" class="header-btn" title="Volver al inicio">
+                <i class="fas fa-home"></i> Inicio
+            </a>
+            <a href="perfil.html" class="profile-link" title="Mi perfil">
+                <i class="fas fa-user-circle"></i> Mi Perfil
+            </a>
+            <button class="header-btn logout" onclick="window.location.href='login.html'" title="Cerrar sesión">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </div>
+    </div>
+    <main class="container">
+        <h1 class="section-title">Gestión de Recursos y Planta</h1>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="location.href='asignacion_materiales.html'">
+                <div>
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Asignar Materiales a Proyectos</span>
+                </div>
+                <button class="btn btn-outline-primary btn-sm mt-2">Asignar</button>
+            </div>
+            <div class="menu-item" onclick="location.href='definicion_fases.html'">
+                <div>
+                    <i class="fas fa-layer-group"></i>
+                    <span>Definir Fases y Estimar Consumos</span>
+                </div>
+                <button class="btn btn-outline-primary btn-sm mt-2">Definir</button>
+            </div>
+            <div class="menu-item" onclick="location.href='alertas_escasez.html'">
+                <div>
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Alertas por Escasez de Productos</span>
+                </div>
+                <button class="btn btn-outline-primary btn-sm mt-2">Ver Alertas</button>
+            </div>
+            <div class="menu-item" onclick="location.href='solicitud_materiales.html'">
+                <div>
+                    <i class="fas fa-file-signature"></i>
+                    <span>Solicitud de Materiales desde Planta</span>
+                </div>
+                <button class="btn btn-outline-primary btn-sm mt-2">Solicitar</button>
+            </div>
+            <div class="menu-item" onclick="location.href='registro_consumo.html'">
+                <div>
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>Registrar Consumo de Materiales</span>
+                </div>
+                <button class="btn btn-outline-primary btn-sm mt-2">Registrar</button>
+            </div>
+            <div class="menu-item" onclick="location.href='consulta_stock.html'">
+                <div>
+                    <i class="fas fa-warehouse"></i>
+                    <span>Consulta de Stock y Ubicación</span>
+                </div>
+                <button class="btn btn-outline-primary btn-sm mt-2">Consultar</button>
+            </div>
+            <div class="menu-item" onclick="location.href='notificaciones_faltantes.html'">
+                <div>
+                    <i class="fas fa-bell"></i>
+                    <span>Notificaciones por Faltantes</span>
+                </div>
+                <button class="btn btn-outline-primary btn-sm mt-2">Ver Notificaciones</button>
+            </div>
+        </div>
+    </main>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
