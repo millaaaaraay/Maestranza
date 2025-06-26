@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Asignar Materiales a Proyectos | Maestranza Unidos</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #e5edf1;
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+        }
+        .sap-header {
+            background: linear-gradient(90deg, #003366 65%, #007cc3 100%);
+            color: white;
+            padding: 16px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo i {
+            font-size: 2.2rem;
+        }
+        .header-actions a, .header-actions button {
+            color: white;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+        .header-actions a:hover, .header-actions button:hover {
+            color: #a9d6ff;
+        }
+        .container {
+            max-width: 700px;
+            margin: 36px auto;
+            background: white;
+            padding: 30px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #003366;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+        label {
+            font-weight: 600;
+            color: #003366;
+        }
+        .form-control, select {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+        .btn-primary {
+            background-color: #007cc3;
+            border-color: #007cc3;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 10px 22px;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #005f8a;
+            border-color: #005f8a;
+        }
+        .material-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .material-row input[type="number"] {
+            width: 80px;
+        }
+        table {
+            margin-top: 30px;
+        }
+        th, td {
+            text-align: center;
+        }
+        .empty-message {
+            color: #777;
+            font-style: italic;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="sap-header">
+        <div class="logo">
+            <i class="fas fa-project-diagram"></i> Asignar Materiales
+        </div>
+        <div class="header-actions">
+            <a href="recursos_planta.html" title="Volver a Recursos y Planta">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+            <a href="perfil.html" title="Mi perfil">
+                <i class="fas fa-user-circle"></i> Mi Perfil
+            </a>
+            <button onclick="window.location.href='login.html'" title="Cerrar sesión">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </div>
+    </header>
+    <main class="container">
+        <h1>Asignar Materiales a Proyectos</h1>
+        <form id="asignacion-form">
+            <div class="form-group">
+                <label for="proyecto">Selecciona un Proyecto:</label>
+                <select id="proyecto" class="form-control" required>
+                    <option value="" disabled selected>-- Elige un proyecto --</option>
+                    <option value="Mantención Grúa Horquilla Toyota">Mantención Grúa Horquilla Toyota</option>
+                    <option value="Reparación Bomba Hidráulica Industrial">Reparación Bomba Hidráulica Industrial</option>
+                    <option value="Fabricación Estructura Metálica">Fabricación Estructura Metálica</option>
+                    <option value="Mantención Preventiva Torno CNC">Mantención Preventiva Torno CNC</option>
+                    <option value="Reparación Sistema Hidráulico Excavadora">Reparación Sistema Hidráulico Excavadora</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Materiales a asignar:</label>
+                <div class="material-row">
+                    <input type="checkbox" id="mat1" name="materiales" value="Aceite Hidráulico ISO 68" />
+                    <label for="mat1" style="flex:1;">Aceite Hidráulico ISO 68</label>
+                    <input type="number" min="1" placeholder="Litros" disabled />
+                </div>
+                <div class="material-row">
+                    <input type="checkbox" id="mat2" name="materiales" value="Planchas de Acero A36" />
+                    <label for="mat2" style="flex:1;">Planchas de Acero A36</label>
+                    <input type="number" min="1" placeholder="Unidades" disabled />
+                </div>
+                <div class="material-row">
+                    <input type="checkbox" id="mat3" name="materiales" value="Rodamientos SKF 6205" />
+                    <label for="mat3" style="flex:1;">Rodamientos SKF 6205</label>
+                    <input type="number" min="1" placeholder="Unidades" disabled />
+                </div>
+                <div class="material-row">
+                    <input type="checkbox" id="mat4" name="materiales" value="Electrodos E6011" />
+                    <label for="mat4" style="flex:1;">Electrodos E6011</label>
+                    <input type="number" min="1" placeholder="Kg" disabled />
+                </div>
+                <div class="material-row">
+                    <input type="checkbox" id="mat5" name="materiales" value="Sellos Hidráulicos" />
+                    <label for="mat5" style="flex:1;">Sellos Hidráulicos</label>
+                    <input type="number" min="1" placeholder="Unidades" disabled />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar Asignación</button>
+        </form>
+
+        <section id="asignaciones-guardadas">
+            <h2 style="margin-top:40px; color:#003366;">Asignaciones guardadas</h2>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Material</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-asignaciones">
+                    <tr><td colspan="3" class="empty-message">No hay asignaciones aún.</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script>
+        // Habilitar cantidad solo si el checkbox está seleccionado
+        document.querySelectorAll('.material-row').forEach(row => {
+            const checkbox = row.querySelector('input[type="checkbox"]');
+            const cantidadInput = row.querySelector('input[type="number"]');
+            checkbox.addEventListener('change', () => {
+                cantidadInput.disabled = !checkbox.checked;
+                if (!checkbox.checked) cantidadInput.value = '';
+                else cantidadInput.focus();
+            });
+        });
+
+        const asignaciones = [];
+
+        function actualizarTabla() {
+            const tbody = document.getElementById('tabla-asignaciones');
+            tbody.innerHTML = '';
+            if (asignaciones.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" class="empty-message">No hay asignaciones aún.</td></tr>`;
+                return;
+            }
+            asignaciones.forEach(({ proyecto, material, cantidad }) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${proyecto}</td>
+                    <td>${material}</td>
+                    <td>${cantidad}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Manejo simple envío formulario
+        document.getElementById('asignacion-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const proyecto = this.proyecto.value;
+            if (!proyecto) {
+                alert('Selecciona un proyecto.');
+                return;
+            }
+            let nuevosAsignados = [];
+            let validacionFallida = false;
+
+            this.querySelectorAll('input[name="materiales"]').forEach((chk, i) => {
+                if (chk.checked) {
+                    const cantidad = this.querySelectorAll('input[type="number"]')[i].value;
+                    if (!cantidad || cantidad < 1) {
+                        alert('Ingresa cantidad válida para ' + chk.value);
+                        validacionFallida = true;
+                        return;
+                    }
+                    nuevosAsignados.push({ proyecto, material: chk.value, cantidad: Number(cantidad) });
+                }
+            });
+
+            if (validacionFallida) return;
+
+            if (nuevosAsignados.length === 0) {
+                alert('Selecciona al menos un material.');
+                return;
+            }
+
+            // Agregar las nuevas asignaciones al array global
+            asignaciones.push(...nuevosAsignados);
+
+            // Actualizar la tabla visible
+            actualizarTabla();
+
+            alert('Asignación guardada correctamente');
+            this.reset();
+            this.querySelectorAll('input[type="number"]').forEach(i => i.disabled = true);
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

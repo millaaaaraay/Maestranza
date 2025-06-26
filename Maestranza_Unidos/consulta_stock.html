@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Consulta de Stock y Ubicación | Maestranza Unidos</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #e5edf1;
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+        }
+        .sap-header {
+            background: linear-gradient(90deg, #003366 65%, #007cc3 100%);
+            color: white;
+            padding: 16px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo i {
+            font-size: 2.2rem;
+        }
+        .header-actions a, .header-actions button {
+            color: white;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+        .header-actions a:hover, .header-actions button:hover {
+            color: #a9d6ff;
+        }
+        .container {
+            max-width: 900px;
+            margin: 36px auto;
+            background: white;
+            padding: 30px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #003366;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+        label {
+            font-weight: 600;
+            color: #003366;
+        }
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            max-width: 350px;
+            margin-bottom: 24px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead {
+            background-color: #007cc3;
+            color: white;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        tbody tr:hover {
+            background-color: #eaf6fb;
+        }
+        @media (max-width: 576px) {
+            .container {
+                margin: 20px 12px;
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="sap-header">
+        <div class="logo">
+            <i class="fas fa-warehouse"></i> Consulta de Stock y Ubicación
+        </div>
+        <div class="header-actions">
+            <a href="recursos_planta.html" title="Volver a Recursos y Planta">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+            <a href="perfil.html" title="Mi perfil">
+                <i class="fas fa-user-circle"></i> Mi Perfil
+            </a>
+            <button onclick="window.location.href='login.html'" title="Cerrar sesión">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </div>
+    </header>
+    <main class="container">
+        <h1>Consulta de Stock y Ubicación</h1>
+        <label for="filtro-material">Filtrar por material:</label>
+        <input type="text" id="filtro-material" class="form-control" placeholder="Escribe el nombre del material..." />
+
+        <table id="tabla-stock">
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Cantidad Disponible</th>
+                    <th>Ubicación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Aceite Hidráulico ISO 68</td>
+                    <td>150</td>
+                    <td>Bodega A - Estante 3</td>
+                </tr>
+                <tr>
+                    <td>Rodamientos SKF 6205</td>
+                    <td>75</td>
+                    <td>Bodega B - Estante 1</td>
+                </tr>
+                <tr>
+                    <td>Electrodos E6011 3/32</td>
+                    <td>200</td>
+                    <td>Bodega A - Estante 5</td>
+                </tr>
+                <tr>
+                    <td>Grasa SKF LGMT 2</td>
+                    <td>50</td>
+                    <td>Bodega C - Estante 2</td>
+                </tr>
+                <tr>
+                    <td>Correas Gates B-75</td>
+                    <td>120</td>
+                    <td>Bodega B - Estante 4</td>
+                </tr>
+                <tr>
+                    <td>Pernos Hexagonales 5/8</td>
+                    <td>90</td>
+                    <td>Bodega C - Estante 1</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <script>
+        // Filtrar tabla por material
+        const filtroInput = document.getElementById('filtro-material');
+        const tabla = document.getElementById('tabla-stock').getElementsByTagName('tbody')[0];
+
+        filtroInput.addEventListener('keyup', function() {
+            const filtro = this.value.toLowerCase();
+            const filas = tabla.getElementsByTagName('tr');
+
+            for(let i = 0; i < filas.length; i++) {
+                const celdaMaterial = filas[i].getElementsByTagName('td')[0];
+                if(celdaMaterial) {
+                    const texto = celdaMaterial.textContent || celdaMaterial.innerText;
+                    filas[i].style.display = texto.toLowerCase().indexOf(filtro) > -1 ? '' : 'none';
+                }
+            }
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

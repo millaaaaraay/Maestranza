@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Definir Fases y Estimar Consumos | Maestranza Unidos</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #e5edf1;
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+        }
+        .sap-header {
+            background: linear-gradient(90deg, #003366 65%, #007cc3 100%);
+            color: white;
+            padding: 16px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo i {
+            font-size: 2.2rem;
+        }
+        .header-actions a, .header-actions button {
+            color: white;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+        .header-actions a:hover, .header-actions button:hover {
+            color: #a9d6ff;
+        }
+        .container {
+            max-width: 700px;
+            margin: 36px auto;
+            background: white;
+            padding: 30px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #003366;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+        label {
+            font-weight: 600;
+            color: #003366;
+        }
+        .form-control, select {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+        .btn-primary {
+            background-color: #007cc3;
+            border-color: #007cc3;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 10px 22px;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #005f8a;
+            border-color: #005f8a;
+        }
+        .fase-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .fase-row input[type="text"], .fase-row input[type="number"] {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            padding: 6px 10px;
+        }
+        .fase-row input[type="text"] {
+            flex: 2;
+        }
+        .fase-row input[type="number"] {
+            flex: 1;
+        }
+        .fase-row button {
+            background-color: #d9534f;
+            border: none;
+            color: white;
+            font-weight: 700;
+            border-radius: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .fase-row button:hover {
+            background-color: #c9302c;
+        }
+        #lista-fases {
+            margin-top: 24px;
+        }
+        #lista-fases h3 {
+            color: #003366;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        #lista-fases table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #lista-fases th, #lista-fases td {
+            border: 1px solid #ced4da;
+            padding: 10px 12px;
+            text-align: center;
+        }
+        #lista-fases th {
+            background-color: #eaf6fb;
+            color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <header class="sap-header">
+        <div class="logo">
+            <i class="fas fa-layer-group"></i> Definir Fases y Estimar Consumos
+        </div>
+        <div class="header-actions">
+            <a href="recursos_planta.html" title="Volver a Recursos y Planta">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+            <a href="perfil.html" title="Mi perfil">
+                <i class="fas fa-user-circle"></i> Mi Perfil
+            </a>
+            <button onclick="window.location.href='login.html'" title="Cerrar sesión">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </div>
+    </header>
+    <main class="container">
+        <h1>Definir Fases y Estimar Consumos</h1>
+        <form id="fase-form">
+            <div class="form-group">
+                <label for="proyecto">Selecciona un Proyecto:</label>
+                <select id="proyecto" class="form-control" required>
+                    <option value="" disabled selected>-- Elige un proyecto --</option>
+                    <option value="Mantención Grúa Horquilla Toyota">Mantención Grúa Horquilla Toyota</option>
+                    <option value="Reparación Bomba Hidráulica Industrial">Reparación Bomba Hidráulica Industrial</option>
+                    <option value="Fabricación Estructura Metálica">Fabricación Estructura Metálica</option>
+                    <option value="Mantención Preventiva Torno CNC">Mantención Preventiva Torno CNC</option>
+                    <option value="Reparación Sistema Hidráulico Excavadora">Reparación Sistema Hidráulico Excavadora</option>
+                </select>
+            </div>
+            <div id="fases-container">
+                <!-- Aquí se agregarán filas de fases -->
+            </div>
+            <button type="button" id="btn-agregar-fase" class="btn btn-primary">Agregar Fase</button>
+            <button type="submit" class="btn btn-primary" style="margin-left:10px;">Guardar Fases</button>
+        </form>
+
+        <section id="lista-fases">
+            <h3>Fases definidas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Nombre de Fase</th>
+                        <th>Consumo Estimado (%)</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-fases">
+                    <tr><td colspan="3" style="text-align:center; color:#777; font-style:italic;">No hay fases definidas aún.</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        const fasesContainer = document.getElementById('fases-container');
+        const tablaFases = document.getElementById('tabla-fases');
+        const faseForm = document.getElementById('fase-form');
+        let fases = [];
+
+        function crearFilaFase(nombre = '', consumo = '') {
+            const div = document.createElement('div');
+            div.classList.add('fase-row');
+
+            const inputNombre = document.createElement('input');
+            inputNombre.type = 'text';
+            inputNombre.placeholder = 'Nombre de la fase';
+            inputNombre.value = nombre;
+            inputNombre.required = true;
+
+            const inputConsumo = document.createElement('input');
+            inputConsumo.type = 'number';
+            inputConsumo.min = 0;
+            inputConsumo.max = 100;
+            inputConsumo.placeholder = '% consumo estimado';
+            inputConsumo.value = consumo;
+            inputConsumo.required = true;
+
+            const btnEliminar = document.createElement('button');
+            btnEliminar.type = 'button';
+            btnEliminar.textContent = 'Eliminar';
+            btnEliminar.addEventListener('click', () => {
+                div.remove();
+            });
+
+            div.appendChild(inputNombre);
+            div.appendChild(inputConsumo);
+            div.appendChild(btnEliminar);
+
+            fasesContainer.appendChild(div);
+        }
+
+        document.getElementById('btn-agregar-fase').addEventListener('click', () => {
+            crearFilaFase();
+        });
+
+        faseForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const proyecto = document.getElementById('proyecto').value;
+            if (!proyecto) {
+                alert('Selecciona un proyecto.');
+                return;
+            }
+
+            const filas = fasesContainer.querySelectorAll('.fase-row');
+            const nuevasFases = [];
+            let sumaConsumo = 0;
+
+            for (const fila of filas) {
+                const nombre = fila.querySelector('input[type="text"]').value.trim();
+                const consumo = parseFloat(fila.querySelector('input[type="number"]').value);
+                if (!nombre) {
+                    alert('Ingresa nombre de fase válido.');
+                    return;
+                }
+                if (isNaN(consumo) || consumo < 0 || consumo > 100) {
+                    alert('Ingresa un consumo estimado válido (0-100%).');
+                    return;
+                }
+                sumaConsumo += consumo;
+                nuevasFases.push({ nombre, consumo });
+            }
+
+            if (nuevasFases.length === 0) {
+                alert('Agrega al menos una fase.');
+                return;
+            }
+
+            if (sumaConsumo > 100) {
+                alert('La suma de consumos estimados no puede superar el 100%.');
+                return;
+            }
+
+            // Guardar las fases (puedes reemplazar con backend)
+            nuevasFases.forEach(f => {
+                fases.push({ proyecto, ...f });
+            });
+
+            // Actualizar tabla
+            actualizarTabla();
+
+            // Limpiar formulario
+            fasesContainer.innerHTML = '';
+            faseForm.reset();
+        });
+
+        function actualizarTabla() {
+            tablaFases.innerHTML = '';
+            if (fases.length === 0) {
+                tablaFases.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#777; font-style:italic;">No hay fases definidas aún.</td></tr>`;
+                return;
+            }
+            fases.forEach(fase => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${fase.proyecto}</td>
+                    <td>${fase.nombre}</td>
+                    <td>${fase.consumo}%</td>
+                `;
+                tablaFases.appendChild(tr);
+            });
+        }
+
+        // Inicialmente agrega una fila para que el usuario comience
+        crearFilaFase();
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
